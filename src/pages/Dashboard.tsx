@@ -50,7 +50,7 @@ const mockJobs = [
   },
 ];
 
-const Index = () => {
+const Dashboard = () => {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
@@ -127,4 +127,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Dashboard;
