@@ -50,6 +50,15 @@
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
+    
+    /* Nordic/Moss green accent */
+    --moss: 152 44% 45%;
+    --moss-foreground: 0 0% 100%;
+    --moss-light: 152 30% 94%;
+    
+    /* Soft grey for Nordic aesthetic */
+    --nordic-grey: 220 14% 96%;
+    --nordic-grey-dark: 220 9% 80%;
   }
 
   * {
