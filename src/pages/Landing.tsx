@@ -1,6 +1,6 @@
 import { ArrowRight, Briefcase, Shield, Zap, Users, CheckCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "@/components/ui/link";
 
 const features = [
   {
@@ -72,7 +72,7 @@ const Landing = () => {
           </div>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm">Sign In</Button>
-            <Link to="/dashboard">
+            <Link href="/dashboard">
               <Button size="sm">Get Started</Button>
             </Link>
           </div>
@@ -97,7 +97,7 @@ const Landing = () => {
               Our credit-based bidding ensures you only receive serious, qualified proposals.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-fade-in">
-              <Link to="/dashboard">
+              <Link href="/dashboard">
                 <Button size="lg" className="gap-2 px-8">
                   Start Posting Jobs
                   <ArrowRight className="h-4 w-4" />
@@ -240,7 +240,7 @@ const Landing = () => {
             Join thousands of businesses finding quality contractors every day.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link to="/dashboard">
+            <Link href="/dashboard">
               <Button variant="secondary" size="lg" className="gap-2 px-8">
                 Get Started Free
                 <ArrowRight className="h-4 w-4" />
