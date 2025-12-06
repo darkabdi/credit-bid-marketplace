@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Link } from "react-router-dom";
+import { Link } from "@/components/ui/link";
 import MilestoneModal from "@/components/workspace/MilestoneModal";
 
 interface Message {
@@ -104,7 +104,7 @@ const ChatWorkspace = () => {
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div className="flex items-center gap-3">
@@ -230,7 +230,7 @@ const ChatWorkspace = () => {
                           </Button>
                         )}
                         {milestone.status === "completed" && (
-                          <Link to="/checkout">
+                          <Link href="/checkout">
                             <Button 
                               size="sm"
                               className="text-xs h-8 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90"
