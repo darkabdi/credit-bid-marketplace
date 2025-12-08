@@ -71,8 +71,10 @@ const Landing = () => {
             <a href="#testimonials" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Testimonials</a>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm">Sign In</Button>
-            <Link href="/dashboard">
+            <Link href="/auth">
+              <Button variant="ghost" size="sm">Sign In</Button>
+            </Link>
+            <Link href="/auth">
               <Button size="sm">Get Started</Button>
             </Link>
           </div>
