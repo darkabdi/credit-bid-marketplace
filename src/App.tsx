@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ProjectCreate from "./pages/ProjectCreate";
 import ChatWorkspace from "./pages/ChatWorkspace";
 import PaymentCheckout from "./pages/PaymentCheckout";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-project" element={<ProjectCreate />} />
           <Route path="/workspace" element={<ChatWorkspace />} />
