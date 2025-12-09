@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/lib/i18n";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
+import Jobs from "./pages/Jobs";
 import ProjectCreate from "./pages/ProjectCreate";
 import ChatWorkspace from "./pages/ChatWorkspace";
 import PaymentCheckout from "./pages/PaymentCheckout";
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/jobs" element={<Jobs />} />
             <Route path="/create-project" element={<ProjectCreate />} />
             <Route path="/workspace" element={<ChatWorkspace />} />
             <Route path="/checkout" element={<PaymentCheckout />} />
