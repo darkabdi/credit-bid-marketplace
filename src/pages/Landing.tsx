@@ -99,15 +99,12 @@ const Landing = () => {
               Our credit-based bidding ensures you only receive serious, qualified proposals.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-fade-in">
-              <Link href="/dashboard">
+              <Link href="/create-project">
                 <Button size="lg" className="gap-2 px-8">
                   Start Posting Jobs
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="px-8">
-                Browse Contractors
-              </Button>
             </div>
             <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground animate-fade-in">
               <div className="flex items-center gap-2">
