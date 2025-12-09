@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Briefcase, FileText, Coins, TrendingUp, MessageSquare } from "lucide-react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { TopBar } from "@/components/layout/TopBar";
@@ -103,7 +104,9 @@ const Dashboard = () => {
               <h2 className="text-lg font-semibold text-foreground">Recent Jobs</h2>
               <p className="text-sm text-muted-foreground">Browse and bid on available projects</p>
             </div>
-            <Button variant="outline">View All Jobs</Button>
+            <Button variant="outline" asChild>
+              <Link to="/jobs">View All Jobs</Link>
+            </Button>
           </div>
 
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
