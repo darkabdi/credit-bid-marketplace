@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const allJobs = [
   {
-    id: 1,
+    id: "1",
     title: "E-commerce Platform Development",
     company: "TechCorp Inc.",
     budget: "$5,000 - $8,000",
@@ -19,7 +19,7 @@ const allJobs = [
     status: "open" as const,
   },
   {
-    id: 2,
+    id: "2",
     title: "Mobile App UI/UX Design",
     company: "StartupXYZ",
     budget: "$2,500 - $4,000",
@@ -29,7 +29,7 @@ const allJobs = [
     status: "open" as const,
   },
   {
-    id: 3,
+    id: "3",
     title: "API Integration Services",
     company: "DataFlow Systems",
     budget: "$3,000 - $5,000",
@@ -39,7 +39,7 @@ const allJobs = [
     status: "in-progress" as const,
   },
   {
-    id: 4,
+    id: "4",
     title: "Brand Identity Package",
     company: "NewVenture Co.",
     budget: "$1,500 - $2,500",
@@ -49,7 +49,7 @@ const allJobs = [
     status: "open" as const,
   },
   {
-    id: 5,
+    id: "5",
     title: "WordPress Website Migration",
     company: "MediaHouse AB",
     budget: "$2,000 - $3,500",
@@ -59,7 +59,7 @@ const allJobs = [
     status: "open" as const,
   },
   {
-    id: 6,
+    id: "6",
     title: "Data Analytics Dashboard",
     company: "InsightPro",
     budget: "$6,000 - $10,000",
@@ -69,7 +69,7 @@ const allJobs = [
     status: "open" as const,
   },
   {
-    id: 7,
+    id: "7",
     title: "SEO Optimization Project",
     company: "GrowthLabs",
     budget: "$1,000 - $2,000",
@@ -79,7 +79,7 @@ const allJobs = [
     status: "in-progress" as const,
   },
   {
-    id: 8,
+    id: "8",
     title: "Custom CRM Development",
     company: "SalesForce Partners",
     budget: "$8,000 - $12,000",

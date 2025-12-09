@@ -1,8 +1,9 @@
 import { Clock, DollarSign, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
 interface JobCardProps {
+  id: string;
   title: string;
   company: string;
   budget: string;
@@ -12,7 +13,7 @@ interface JobCardProps {
   status: "open" | "in-progress" | "closed";
 }
 
-export function JobCard({ title, company, budget, deadline, bidsCount, tags, status }: JobCardProps) {
+export function JobCard({ id, title, company, budget, deadline, bidsCount, tags, status }: JobCardProps) {
   const statusStyles = {
     open: "bg-success/10 text-success border-success/20",
     "in-progress": "bg-warning/10 text-warning border-warning/20",
@@ -59,11 +60,13 @@ export function JobCard({ title, company, budget, deadline, bidsCount, tags, sta
       </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-        <Button variant="outline" size="sm">
-          View Details
-        </Button>
+        <Link to={`/jobs/${id}`}>
+          <Button variant="outline" size="sm">
+            Visa detaljer
+          </Button>
+        </Link>
         <Button variant="default" size="sm">
-          Place Bid
+          Lägg bud
         </Button>
       </div>
     </div>

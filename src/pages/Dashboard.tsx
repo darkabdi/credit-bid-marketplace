@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const mockJobs = [
   {
-    id: 1,
+    id: "1",
     title: "E-commerce Platform Development",
     company: "TechCorp Inc.",
     budget: "$5,000 - $8,000",
@@ -20,7 +20,7 @@ const mockJobs = [
     status: "open" as const,
   },
   {
-    id: 2,
+    id: "2",
     title: "Mobile App UI/UX Design",
     company: "StartupXYZ",
     budget: "$2,500 - $4,000",
@@ -30,7 +30,7 @@ const mockJobs = [
     status: "open" as const,
   },
   {
-    id: 3,
+    id: "3",
     title: "API Integration Services",
     company: "DataFlow Systems",
     budget: "$3,000 - $5,000",
@@ -40,7 +40,7 @@ const mockJobs = [
     status: "in-progress" as const,
   },
   {
-    id: 4,
+    id: "4",
     title: "Brand Identity Package",
     company: "NewVenture Co.",
     budget: "$1,500 - $2,500",
