@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Search, Filter, MessageSquare } from "lucide-react";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { TopBar } from "@/components/layout/TopBar";
+import { Search, Filter } from "lucide-react";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { JobCard } from "@/components/dashboard/JobCard";
-import { ChatModal } from "@/components/dashboard/ChatModal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -91,7 +89,6 @@ const allJobs = [
 ];
 
 const Jobs = () => {
-  const [chatOpen, setChatOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredJobs = allJobs.filter(
@@ -102,65 +99,48 @@ const Jobs = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      <Sidebar />
-      <TopBar />
+    <DashboardLayout>
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-semibold text-foreground">Alla Jobb</h1>
+        <p className="mt-1 text-muted-foreground">Bläddra och lägg bud på tillgängliga projekt</p>
+      </div>
 
-      <main className="ml-64 pt-16">
-        <div className="p-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-foreground">Alla Jobb</h1>
-            <p className="mt-1 text-muted-foreground">Bläddra och lägg bud på tillgängliga projekt</p>
-          </div>
-
-          {/* Search and Filter */}
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Sök jobb..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <Button variant="outline" className="gap-2">
-              <Filter className="h-4 w-4" />
-              Filter
-            </Button>
-          </div>
-
-          {/* Jobs Count */}
-          <p className="mb-4 text-sm text-muted-foreground">
-            Visar {filteredJobs.length} av {allJobs.length} jobb
-          </p>
-
-          {/* Jobs Grid */}
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {filteredJobs.map((job) => (
-              <JobCard key={job.id} {...job} />
-            ))}
-          </div>
-
-          {filteredJobs.length === 0 && (
-            <div className="py-12 text-center">
-              <p className="text-muted-foreground">Inga jobb hittades som matchar din sökning.</p>
-            </div>
-          )}
+      {/* Search and Filter */}
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Sök jobb..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
         </div>
-      </main>
+        <Button variant="outline" className="gap-2">
+          <Filter className="h-4 w-4" />
+          Filter
+        </Button>
+      </div>
 
-      {/* Floating Chat Button */}
-      <button
-        onClick={() => setChatOpen(true)}
-        className="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elevated transition-transform hover:scale-105"
-      >
-        <MessageSquare className="h-6 w-6" />
-      </button>
+      {/* Jobs Count */}
+      <p className="mb-4 text-sm text-muted-foreground">
+        Visar {filteredJobs.length} av {allJobs.length} jobb
+      </p>
 
-      <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
-    </div>
+      {/* Jobs Grid */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        {filteredJobs.map((job) => (
+          <JobCard key={job.id} {...job} />
+        ))}
+      </div>
+
+      {filteredJobs.length === 0 && (
+        <div className="py-12 text-center">
+          <p className="text-muted-foreground">Inga jobb hittades som matchar din sökning.</p>
+        </div>
+      )}
+    </DashboardLayout>
   );
 };
 

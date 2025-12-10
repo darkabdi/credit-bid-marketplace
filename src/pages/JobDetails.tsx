@@ -1,9 +1,8 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, DollarSign, Users, Calendar, MapPin, Briefcase } from "lucide-react";
+import { ArrowLeft, Clock, DollarSign, Users, MapPin, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { TopBar } from "@/components/layout/TopBar";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
 
 const jobsData = [
   {
@@ -92,21 +91,15 @@ export default function JobDetails() {
 
   if (!job) {
     return (
-      <div className="flex min-h-screen bg-background">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <TopBar />
-          <main className="flex-1 p-6">
-            <div className="text-center py-12">
-              <h1 className="text-2xl font-semibold text-foreground">Jobbet hittades inte</h1>
-              <p className="text-muted-foreground mt-2">Det efterfrågade jobbet kunde inte hittas.</p>
-              <Link to="/jobs">
-                <Button className="mt-4">Tillbaka till jobb</Button>
-              </Link>
-            </div>
-          </main>
+      <DashboardLayout>
+        <div className="text-center py-12">
+          <h1 className="text-2xl font-semibold text-foreground">Jobbet hittades inte</h1>
+          <p className="text-muted-foreground mt-2">Det efterfrågade jobbet kunde inte hittas.</p>
+          <Link to="/jobs">
+            <Button className="mt-4">Tillbaka till jobb</Button>
+          </Link>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
@@ -123,114 +116,108 @@ export default function JobDetails() {
   };
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <TopBar />
-        <main className="flex-1 p-6">
-          <div className="max-w-4xl mx-auto">
-            {/* Back button */}
-            <Link to="/jobs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors">
-              <ArrowLeft className="h-4 w-4" />
-              <span>Tillbaka till jobb</span>
-            </Link>
+    <DashboardLayout>
+      <div className="max-w-4xl mx-auto">
+        {/* Back button */}
+        <Link to="/jobs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          <span>Tillbaka till jobb</span>
+        </Link>
 
-            {/* Header */}
-            <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-2xl font-semibold text-foreground">{job.title}</h1>
-                    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${statusStyles[job.status]}`}>
-                      {statusLabels[job.status]}
-                    </span>
-                  </div>
-                  <p className="text-lg text-muted-foreground">{job.company}</p>
-                </div>
-                <Button size="lg">Lägg bud</Button>
+        {/* Header */}
+        <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-2xl font-semibold text-foreground">{job.title}</h1>
+                <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${statusStyles[job.status]}`}>
+                  {statusLabels[job.status]}
+                </span>
               </div>
+              <p className="text-lg text-muted-foreground">{job.company}</p>
+            </div>
+            <Button size="lg">Lägg bud</Button>
+          </div>
 
-              <div className="flex flex-wrap gap-2 mt-4">
-                {job.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">{tag}</Badge>
-                ))}
-              </div>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {job.tags.map((tag) => (
+              <Badge key={tag} variant="secondary">{tag}</Badge>
+            ))}
+          </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-border">
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Budget</p>
-                    <p className="font-medium text-foreground">{job.budget}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Deadline</p>
-                    <p className="font-medium text-foreground">{job.deadline}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Bud</p>
-                    <p className="font-medium text-foreground">{job.bidsCount} bud</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-muted-foreground" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Plats</p>
-                    <p className="font-medium text-foreground">{job.location}</p>
-                  </div>
-                </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-border">
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Budget</p>
+                <p className="font-medium text-foreground">{job.budget}</p>
               </div>
             </div>
-
-            {/* Description */}
-            <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                <Briefcase className="h-5 w-5" />
-                Beskrivning
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">{job.description}</p>
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Deadline</p>
+                <p className="font-medium text-foreground">{job.deadline}</p>
+              </div>
             </div>
-
-            {/* Requirements */}
-            <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Krav</h2>
-              <ul className="space-y-2">
-                {job.requirements.map((req, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                    <span className="text-primary mt-1">•</span>
-                    {req}
-                  </li>
-                ))}
-              </ul>
+            <div className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Bud</p>
+                <p className="font-medium text-foreground">{job.bidsCount} bud</p>
+              </div>
             </div>
-
-            {/* Deliverables */}
-            <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Leverabler</h2>
-              <ul className="space-y-2">
-                {job.deliverables.map((del, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                    <span className="text-primary mt-1">•</span>
-                    {del}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-4">
-              <Button size="lg" className="flex-1">Lägg bud</Button>
-              <Button size="lg" variant="outline">Kontakta kund</Button>
+            <div className="flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-xs text-muted-foreground">Plats</p>
+                <p className="font-medium text-foreground">{job.location}</p>
+              </div>
             </div>
           </div>
-        </main>
+        </div>
+
+        {/* Description */}
+        <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
+          <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+            <Briefcase className="h-5 w-5" />
+            Beskrivning
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">{job.description}</p>
+        </div>
+
+        {/* Requirements */}
+        <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Krav</h2>
+          <ul className="space-y-2">
+            {job.requirements.map((req, index) => (
+              <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-primary mt-1">•</span>
+                {req}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Deliverables */}
+        <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
+          <h2 className="text-lg font-semibold text-foreground mb-4">Leverabler</h2>
+          <ul className="space-y-2">
+            {job.deliverables.map((del, index) => (
+              <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-primary mt-1">•</span>
+                {del}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-4">
+          <Button size="lg" className="flex-1">Lägg bud</Button>
+          <Button size="lg" variant="outline">Kontakta kund</Button>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
