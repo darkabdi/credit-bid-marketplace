@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, FileText, Coins, TrendingUp, MessageSquare } from "lucide-react";
-import { Sidebar } from "@/components/layout/Sidebar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
 import { TopBar } from "@/components/layout/TopBar";
 import { StatsCard } from "@/components/dashboard/StatsCard";
 import { JobCard } from "@/components/dashboard/JobCard";
 import { ChatModal } from "@/components/dashboard/ChatModal";
 import { Button } from "@/components/ui/button";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const mockJobs = [
   {
@@ -55,78 +56,84 @@ const Dashboard = () => {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Sidebar />
-      <TopBar />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        <AppSidebar />
+        
+        <div className="flex-1 flex flex-col">
+          <header className="h-16 border-b border-border flex items-center px-4 gap-4 bg-card">
+            <SidebarTrigger />
+            <TopBar />
+          </header>
 
-      <main className="ml-64 pt-16">
-        <div className="p-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
-            <p className="mt-1 text-muted-foreground">Welcome back, John. Here's your overview.</p>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-            <StatsCard
-              title="Active Jobs"
-              value={24}
-              subtitle="3 pending review"
-              icon={<Briefcase className="h-6 w-6 text-primary" />}
-              trend={{ value: "12% this month", positive: true }}
-            />
-            <StatsCard
-              title="My Bids"
-              value={18}
-              subtitle="5 accepted"
-              icon={<FileText className="h-6 w-6 text-accent" />}
-              trend={{ value: "8% this month", positive: true }}
-            />
-            <StatsCard
-              title="Credit Balance"
-              value="1,250"
-              subtitle="Credits available"
-              icon={<Coins className="h-6 w-6 text-warning" />}
-            />
-            <StatsCard
-              title="Success Rate"
-              value="87%"
-              subtitle="Last 30 days"
-              icon={<TrendingUp className="h-6 w-6 text-success" />}
-              trend={{ value: "5% improvement", positive: true }}
-            />
-          </div>
-
-          {/* Jobs Section */}
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-foreground">Recent Jobs</h2>
-              <p className="text-sm text-muted-foreground">Browse and bid on available projects</p>
+          <main className="flex-1 p-8">
+            {/* Page Header */}
+            <div className="mb-8">
+              <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+              <p className="mt-1 text-muted-foreground">Welcome back, John. Here's your overview.</p>
             </div>
-            <Button variant="outline" asChild>
-              <Link to="/jobs">View All Jobs</Link>
-            </Button>
-          </div>
 
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {mockJobs.map((job) => (
-              <JobCard key={job.id} {...job} />
-            ))}
-          </div>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+              <StatsCard
+                title="Active Jobs"
+                value={24}
+                subtitle="3 pending review"
+                icon={<Briefcase className="h-6 w-6 text-primary" />}
+                trend={{ value: "12% this month", positive: true }}
+              />
+              <StatsCard
+                title="My Bids"
+                value={18}
+                subtitle="5 accepted"
+                icon={<FileText className="h-6 w-6 text-accent" />}
+                trend={{ value: "8% this month", positive: true }}
+              />
+              <StatsCard
+                title="Credit Balance"
+                value="1,250"
+                subtitle="Credits available"
+                icon={<Coins className="h-6 w-6 text-warning" />}
+              />
+              <StatsCard
+                title="Success Rate"
+                value="87%"
+                subtitle="Last 30 days"
+                icon={<TrendingUp className="h-6 w-6 text-success" />}
+                trend={{ value: "5% improvement", positive: true }}
+              />
+            </div>
+
+            {/* Jobs Section */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Recent Jobs</h2>
+                <p className="text-sm text-muted-foreground">Browse and bid on available projects</p>
+              </div>
+              <Button variant="outline" asChild>
+                <Link to="/jobs">View All Jobs</Link>
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              {mockJobs.map((job) => (
+                <JobCard key={job.id} {...job} />
+              ))}
+            </div>
+          </main>
         </div>
-      </main>
 
-      {/* Floating Chat Button */}
-      <button
-        onClick={() => setChatOpen(true)}
-        className="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elevated transition-transform hover:scale-105"
-      >
-        <MessageSquare className="h-6 w-6" />
-      </button>
+        {/* Floating Chat Button */}
+        <button
+          onClick={() => setChatOpen(true)}
+          className="fixed bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elevated transition-transform hover:scale-105"
+        >
+          <MessageSquare className="h-6 w-6" />
+        </button>
 
-      <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
-    </div>
+        <ChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+      </div>
+    </SidebarProvider>
   );
 };
 
