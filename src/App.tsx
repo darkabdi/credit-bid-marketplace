@@ -14,15 +14,18 @@ import PaymentCheckout from "./pages/PaymentCheckout";
 import Auth from "./pages/Auth";
 import RoleSelection from "./pages/RoleSelection";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./context/authcontext.tsx";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <AuthProvider>
     <LanguageProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -38,8 +41,10 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+       
       </TooltipProvider>
     </LanguageProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

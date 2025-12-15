@@ -1,20 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Briefcase, Mail, Lock, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/components/ui/link";
+import { useAuth } from "@/context/authcontext";
+import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
+
+
+  
+  const Auth = () => {
+  const {login , signup , user} = useAuth()
+  const navigate = useNavigate()
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle authentication logic here
-    console.log(isLogin ? "Login" : "Sign up", { email, password, name });
+
+  useEffect(()=>{
+    if (!user) return
+    if (user.role) navigate('/Dashboard')
+    else navigate('/role-selection')
+
+  },[user])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+   try {
+    if (isLogin){
+       await login({email ,password})
+    }else{
+      await signup({email , password , name})
+    }
+   
+   } catch (error) {
+    
+   }
   };
 
   return (
