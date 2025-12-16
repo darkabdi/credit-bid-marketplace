@@ -1,4 +1,5 @@
-import { ArrowRight, Briefcase, Shield, Zap, Users, CheckCircle, Star } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Briefcase, Shield, Zap, Users, CheckCircle, Star, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
@@ -237,24 +238,71 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Contact Form Section */}
       <section className="bg-primary py-20">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-primary-foreground">{t('cta.title')}</h2>
-          <p className="mt-4 text-primary-foreground/80">
-            {t('cta.subtitle')}
-          </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/dashboard">
-              <Button variant="secondary" size="lg" className="gap-2 px-8">
-                {t('cta.getStarted')}
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Button variant="outline" size="lg" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 px-8">
-              {t('cta.demo')}
-            </Button>
+        <div className="mx-auto max-w-2xl px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-primary-foreground">{t('contact.title')}</h2>
+            <p className="mt-4 text-primary-foreground/80">
+              {t('contact.subtitle')}
+            </p>
           </div>
+          <form className="space-y-6 bg-background/10 backdrop-blur-sm rounded-2xl p-8 border border-primary-foreground/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-primary-foreground mb-2">
+                  {t('contact.name')}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="w-full px-4 py-3 rounded-lg bg-background/20 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30 transition-all"
+                  placeholder={t('contact.namePlaceholder')}
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-primary-foreground mb-2">
+                  {t('contact.email')}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="w-full px-4 py-3 rounded-lg bg-background/20 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30 transition-all"
+                  placeholder={t('contact.emailPlaceholder')}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="company" className="block text-sm font-medium text-primary-foreground mb-2">
+                {t('contact.company')}
+              </label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                className="w-full px-4 py-3 rounded-lg bg-background/20 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30 transition-all"
+                placeholder={t('contact.companyPlaceholder')}
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-primary-foreground mb-2">
+                {t('contact.message')}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                className="w-full px-4 py-3 rounded-lg bg-background/20 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary-foreground/30 transition-all resize-none"
+                placeholder={t('contact.messagePlaceholder')}
+              />
+            </div>
+            <Button type="submit" variant="secondary" size="lg" className="w-full gap-2">
+              {t('contact.submit')}
+              <Send className="h-4 w-4" />
+            </Button>
+          </form>
         </div>
       </section>
 

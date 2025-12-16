@@ -64,11 +64,18 @@ const translations = {
     'testimonial2.content': 'Kreditsystemet är genialt. Jag bjuder bara på projekt jag verkligen är intresserad av, vilket sparar tid för alla.',
     'testimonial3.content': 'Professionellt, effektivt och pålitligt. BidHub är nu vår förstahandsplattform för alla entreprenörsbehov.',
     
-    // CTA
-    'cta.title': 'Redo att förändra ditt arbetsflöde?',
-    'cta.subtitle': 'Gå med tusentals företag som hittar kvalitetsentreprenörer varje dag.',
-    'cta.getStarted': 'Kom igång gratis',
-    'cta.demo': 'Boka en demo',
+    // Contact Form
+    'contact.title': 'Kontakta oss',
+    'contact.subtitle': 'Har du frågor eller vill veta mer? Vi hör gärna från dig.',
+    'contact.name': 'Namn',
+    'contact.namePlaceholder': 'Ditt namn',
+    'contact.email': 'E-post',
+    'contact.emailPlaceholder': 'din@email.com',
+    'contact.company': 'Företag',
+    'contact.companyPlaceholder': 'Ditt företagsnamn',
+    'contact.message': 'Meddelande',
+    'contact.messagePlaceholder': 'Berätta mer om vad du behöver hjälp med...',
+    'contact.submit': 'Skicka meddelande',
     
     // Footer
     'footer.privacy': 'Integritet',
@@ -132,11 +139,18 @@ const translations = {
     'testimonial2.content': 'The credit system is brilliant. I only bid on projects I\'m genuinely interested in, saving everyone time.',
     'testimonial3.content': 'Professional, efficient, and trustworthy. BidHub is now our go-to platform for all contractor needs.',
     
-    // CTA
-    'cta.title': 'Ready to Transform Your Workflow?',
-    'cta.subtitle': 'Join thousands of businesses finding quality contractors every day.',
-    'cta.getStarted': 'Get Started Free',
-    'cta.demo': 'Schedule a Demo',
+    // Contact Form
+    'contact.title': 'Contact Us',
+    'contact.subtitle': 'Have questions or want to learn more? We would love to hear from you.',
+    'contact.name': 'Name',
+    'contact.namePlaceholder': 'Your name',
+    'contact.email': 'Email',
+    'contact.emailPlaceholder': 'your@email.com',
+    'contact.company': 'Company',
+    'contact.companyPlaceholder': 'Your company name',
+    'contact.message': 'Message',
+    'contact.messagePlaceholder': 'Tell us more about what you need help with...',
+    'contact.submit': 'Send Message',
     
     // Footer
     'footer.privacy': 'Privacy',

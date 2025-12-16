@@ -14,7 +14,7 @@ import PaymentCheckout from "./pages/PaymentCheckout";
 import Auth from "./pages/Auth";
 import RoleSelection from "./pages/RoleSelection";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./context/authcontext.tsx";
+import { AuthProvider } from "./context/authContext";
 
 const queryClient = new QueryClient();
 
