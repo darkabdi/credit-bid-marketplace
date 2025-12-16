@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from "@/lib/i18n";
 import { Briefcase, Users, CheckCircle2 } from "lucide-react";
-import { useAuth } from "@/context/authcontext";
+import { useAuth } from "@/context/authContext";
 
 const RoleSelection = () => {
   const [selectedRole, setSelectedRole] = useState<"client" | "freelancer" | null>(null);
