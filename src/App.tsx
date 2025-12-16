@@ -13,6 +13,9 @@ import ChatWorkspace from "./pages/ChatWorkspace";
 import PaymentCheckout from "./pages/PaymentCheckout";
 import Auth from "./pages/Auth";
 import RoleSelection from "./pages/RoleSelection";
+import Messages from "./pages/Messages";
+import Profile from "./pages/Profile";
+
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./context/authContext";
 
@@ -37,6 +40,9 @@ const App = () => (
             <Route path="/create-project" element={<ProjectCreate />} />
             <Route path="/workspace" element={<ChatWorkspace />} />
             <Route path="/checkout" element={<PaymentCheckout />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/credits" element={<Dashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
