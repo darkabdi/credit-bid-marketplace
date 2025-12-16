@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from "@/lib/i18n";
 import { Briefcase, Users, CheckCircle2 } from "lucide-react";
+import { useAuth } from "@/context/authcontext";
 
 const RoleSelection = () => {
   const [selectedRole, setSelectedRole] = useState<"client" | "freelancer" | null>(null);
+  const { updateRole, user } = useAuth();
   const navigate = useNavigate();
   const { language } = useLanguage();
 
@@ -55,8 +57,17 @@ const RoleSelection = () => {
 
   const text = t[language];
 
-  const handleContinue = () => {
-    if (selectedRole) {
+  const handleContinue = async () => {
+    if (!selectedRole) return; {
+    try {
+      const success = await updateRole(selectedRole)
+      if (success) navigate('/dashboard') 
+      else console.error("Failed to update role");
+        
+      }
+  catch(error){
+      console.error(error)
+  }
       // TODO: Save role to database
       navigate("/dashboard");
     }
