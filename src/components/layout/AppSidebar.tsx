@@ -1,5 +1,5 @@
-import { LayoutDashboard, Briefcase, FileText, Coins, MessageSquare, HelpCircle } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { LayoutDashboard, Briefcase, FileText, Coins, MessageSquare, User, LogOut } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +12,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useAuth } from "@/context/authContext";
+import { Button } from "@/components/ui/button";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
@@ -19,12 +21,20 @@ const navItems = [
   { icon: FileText, label: "Bids", href: "/bids" },
   { icon: Coins, label: "Credits", href: "/credits" },
   { icon: MessageSquare, label: "Messages", href: "/messages" },
+  { icon: User, label: "Profile", href: "/profile" },
 ];
 
 export function AppSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { state } = useSidebar();
+  const { logout } = useAuth();
   const isCollapsed = state === "collapsed";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <Sidebar collapsible="icon">
@@ -65,17 +75,15 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-sidebar-border">
-        <div className={`rounded-lg bg-sidebar-accent p-3 ${isCollapsed ? "px-2" : "px-4"}`}>
-          {isCollapsed ? (
-            <HelpCircle className="h-5 w-5 text-sidebar-accent-foreground" />
-          ) : (
-            <>
-              <p className="text-xs font-medium text-sidebar-foreground/70">Need help?</p>
-              <p className="mt-1 text-sm font-medium text-sidebar-foreground">Contact Support</p>
-            </>
-          )}
-        </div>
+      <SidebarFooter className="border-t border-sidebar-border p-2">
+        <Button
+          variant="ghost"
+          onClick={handleLogout}
+          className={`w-full justify-start gap-3 text-sidebar-foreground hover:bg-destructive/10 hover:text-destructive ${isCollapsed ? "px-2" : "px-3"}`}
+        >
+          <LogOut className="h-5 w-5" />
+          {!isCollapsed && <span>Logout</span>}
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );
