@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -56,6 +56,17 @@ const RoleSelection = () => {
   };
 
   const text = t[language];
+useEffect(() => {
+  if (!user) return;
+
+  if (user.role === "admin") {
+    navigate("/admin", { replace: true });
+  }
+
+  if (user.role) {
+    navigate("/dashboard", { replace: true });
+  }
+}, [user, navigate]);
 
   const handleContinue = async () => {
     if (!selectedRole) return; {

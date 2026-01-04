@@ -1,11 +1,13 @@
 import { Bell, CreditCard, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/authContext";
 
 interface TopBarProps {
   onOpenChat?: () => void;
 }
-
 export function TopBar({ onOpenChat }: TopBarProps) {
+  const {user} = useAuth()
+
   return (
     <div className="flex flex-1 items-center justify-between">
       <div className="flex items-center gap-4">
@@ -32,8 +34,8 @@ export function TopBar({ onOpenChat }: TopBarProps) {
 
         <div className="ml-2 flex items-center gap-3 border-l border-border pl-4">
           <div className="text-right">
-            <p className="text-sm font-medium text-foreground">John Smith</p>
-            <p className="text-xs text-muted-foreground">Client</p>
+            <p className="text-sm font-medium text-foreground">{user?.name || "Loading..."}</p>
+            <p className="text-xs text-muted-foreground">{user?.role}</p>
           </div>
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
             <User className="h-5 w-5 text-primary-foreground" />

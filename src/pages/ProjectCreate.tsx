@@ -13,6 +13,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "@/components/ui/link";
+import { createProject } from "@/services/projectServices";
+import { useNavigate } from "react-router";
+
+
 
 const steps = [
   { id: 1, title: "Basics", description: "Project title & category" },
@@ -33,6 +37,7 @@ const categories = [
 ];
 
 const ProjectCreate = () => {
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     title: "",
@@ -55,6 +60,20 @@ const ProjectCreate = () => {
       setFormData({ ...formData, files: Array.from(e.target.files) });
     }
   };
+  const handleSubmit = async ()=>{
+    try {
+      await createProject({
+      title: formData.title,
+      category: formData.category,
+      budget: Number(formData.budget),
+      description: formData.description,
+      })
+      navigate('/dashboard')
+    } catch (error: any) {
+      console.error(error)
+      alert(error.message)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -240,10 +259,13 @@ const ProjectCreate = () => {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               ) : (
-                <Button className="gap-2 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90">
-                  <Check className="h-4 w-4" />
-                  Create Project
-                </Button>
+              <Button
+                className="gap-2 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90"
+                onClick={handleSubmit}
+              >
+                <Check className="h-4 w-4" />
+                Create Project
+              </Button>
               )}
             </div>
           </CardContent>

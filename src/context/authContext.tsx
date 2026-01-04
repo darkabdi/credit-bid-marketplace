@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-interface User {
+export type UserType =  {
   _id: string;
   name: string;
   email: string;
-  role?: string | null;
+  role?: "admin" | "client" | "freelancer";
   
 }
 
-interface AuthContextType {
-  user: User | null;
+export type AuthContextType = {
+  user: UserType | null;
   token: string | null;
   isAuthenticated: boolean;
   loading: boolean;
@@ -22,7 +22,7 @@ const API_URL = "http://localhost:8080";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false)
   }, []);
 
-  const saveAuth = (tok: string, usr: User) => {
+  const saveAuth = (tok: string, usr: UserType) => {
     setToken(tok);
     setUser(usr);
     localStorage.setItem("token", tok);

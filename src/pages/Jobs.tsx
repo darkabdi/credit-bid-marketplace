@@ -4,6 +4,8 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { JobCard } from "@/components/dashboard/JobCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ProjectList } from "@/components/projects/ProjectList";
+
 
 const allJobs = [
   {
@@ -88,6 +90,7 @@ const allJobs = [
   },
 ];
 
+
 const Jobs = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -130,6 +133,7 @@ const Jobs = () => {
 
       {/* Jobs Grid */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <ProjectList/>
         {filteredJobs.map((job) => (
           <JobCard key={job.id} {...job} />
         ))}

@@ -2,6 +2,7 @@ import { Clock, DollarSign, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/context/authContext";
 interface JobCardProps {
   id: string;
   title: string;
@@ -11,9 +12,20 @@ interface JobCardProps {
   bidsCount: number;
   tags: string[];
   status: "open" | "in-progress" | "closed";
+  onViewDetails?: () => void; 
+  footer?: JSX.Element;
 }
 
-export function JobCard({ id, title, company, budget, deadline, bidsCount, tags, status }: JobCardProps) {
+export function JobCard({ 
+  id,
+  title,
+  company, 
+  budget, 
+  deadline, 
+  bidsCount, 
+  tags, 
+  status }: JobCardProps) {
+  const {user} = useAuth( )
   const statusStyles = {
     open: "bg-success/10 text-success border-success/20",
     "in-progress": "bg-warning/10 text-warning border-warning/20",
@@ -65,9 +77,11 @@ export function JobCard({ id, title, company, budget, deadline, bidsCount, tags,
             Visa detaljer
           </Button>
         </Link>
-        <Button variant="default" size="sm">
-          Lägg bud
-        </Button>
+            {user?.role === "freelancer" && status === "open" && (
+          <Button size="sm">
+            Place Bid
+          </Button>
+        )}
       </div>
     </div>
   );
