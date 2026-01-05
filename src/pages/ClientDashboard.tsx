@@ -127,24 +127,20 @@ const ClientDashboard = () => {
         <StatsCard
           title="Active Projects"
           value="4"
-          icon={<Briefcase className="h-5 w-5" />}
           trend={{ value: "2 in progress", positive: true }}
         />
         <StatsCard
           title="Pending Proposals"
           value="20"
-          icon={<FileText className="h-5 w-5" />}
           trend={{ value: "5 new today", positive: true }}
         />
         <StatsCard
           title="Total Spent"
           value="$48,250"
-          icon={<DollarSign className="h-5 w-5" />}
         />
         <StatsCard
           title="Active Freelancers"
           value="3"
-          icon={<Users className="h-5 w-5" />}
         />
       </div>
 

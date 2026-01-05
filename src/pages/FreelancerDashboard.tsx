@@ -84,25 +84,21 @@ const FreelancerDashboard = () => {
         <StatsCard
           title="Active Contracts"
           value="3"
-          icon={<Briefcase className="h-5 w-5" />}
           trend={{ value: "1 new this week", positive: true }}
         />
         <StatsCard
           title="Pending Proposals"
           value="8"
-          icon={<FileText className="h-5 w-5" />}
           trend={{ value: "2 responses", positive: true }}
         />
         <StatsCard
           title="Total Earnings"
           value="$24,580"
-          icon={<Coins className="h-5 w-5" />}
           trend={{ value: "12% this month", positive: true }}
         />
         <StatsCard
           title="Success Rate"
           value="94%"
-          icon={<TrendingUp className="h-5 w-5" />}
           trend={{ value: "5% improvement", positive: true }}
         />
       </div>
