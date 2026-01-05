@@ -1,116 +1,65 @@
-import { useState } from "react";
-import { Search, Briefcase } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Briefcase, Loader2 } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { JobCard } from "@/components/dashboard/JobCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ProjectList } from "@/components/projects/ProjectList";
+import { getProjects } from "@/services/projectServices";
 
-const allJobs = [
-  {
-    id: "1",
-    title: "E-commerce Platform Development",
-    company: "TechCorp Inc.",
-    budget: "$5,000 - $8,000",
-    deadline: "Dec 15, 2024",
-    bidsCount: 12,
-    tags: ["React", "Node.js", "PostgreSQL"],
-    status: "open" as const,
-  },
-  {
-    id: "2",
-    title: "Mobile App UI/UX Design",
-    company: "StartupXYZ",
-    budget: "$2,500 - $4,000",
-    deadline: "Dec 20, 2024",
-    bidsCount: 8,
-    tags: ["Figma", "Mobile Design", "Prototyping"],
-    status: "open" as const,
-  },
-  {
-    id: "3",
-    title: "API Integration Services",
-    company: "DataFlow Systems",
-    budget: "$3,000 - $5,000",
-    deadline: "Dec 10, 2024",
-    bidsCount: 15,
-    tags: ["REST API", "Python", "AWS"],
-    status: "in-progress" as const,
-  },
-  {
-    id: "4",
-    title: "Brand Identity Package",
-    company: "NewVenture Co.",
-    budget: "$1,500 - $2,500",
-    deadline: "Dec 25, 2024",
-    bidsCount: 6,
-    tags: ["Branding", "Logo Design", "Guidelines"],
-    status: "open" as const,
-  },
-  {
-    id: "5",
-    title: "WordPress Website Migration",
-    company: "MediaHouse AB",
-    budget: "$2,000 - $3,500",
-    deadline: "Jan 5, 2025",
-    bidsCount: 9,
-    tags: ["WordPress", "PHP", "MySQL"],
-    status: "open" as const,
-  },
-  {
-    id: "6",
-    title: "Data Analytics Dashboard",
-    company: "InsightPro",
-    budget: "$6,000 - $10,000",
-    deadline: "Jan 10, 2025",
-    bidsCount: 4,
-    tags: ["Python", "D3.js", "BigQuery"],
-    status: "open" as const,
-  },
-  {
-    id: "7",
-    title: "SEO Optimization Project",
-    company: "GrowthLabs",
-    budget: "$1,000 - $2,000",
-    deadline: "Dec 30, 2024",
-    bidsCount: 11,
-    tags: ["SEO", "Content Strategy", "Analytics"],
-    status: "in-progress" as const,
-  },
-  {
-    id: "8",
-    title: "Custom CRM Development",
-    company: "SalesForce Partners",
-    budget: "$8,000 - $12,000",
-    deadline: "Feb 1, 2025",
-    bidsCount: 7,
-    tags: ["React", "Node.js", "MongoDB"],
-    status: "open" as const,
-  },
-];
+interface Project {
+  _id: string;
+  title: string;
+  category: string;
+  budget: number;
+  description?: string;
+  status?: "open" | "in-progress" | "closed";
+  client?: { name: string };
+  bids?: any[];
+  createdAt?: string;
+}
 
 const filterCategories = ["All", "Open", "In Progress"];
 
 const Jobs = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredJobs = allJobs.filter((job) => {
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await getProjects();
+        setProjects(data);
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
+
+  const filteredProjects = projects.filter((project) => {
+    const status = project.status || "open";
+    const clientName = project.client?.name || "";
+    
     const matchesSearch =
-      job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.category.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesFilter =
       activeFilter === "All" ||
-      (activeFilter === "Open" && job.status === "open") ||
-      (activeFilter === "In Progress" && job.status === "in-progress");
+      (activeFilter === "Open" && status === "open") ||
+      (activeFilter === "In Progress" && status === "in-progress");
     
     return matchesSearch && matchesFilter;
   });
 
-  const openJobsCount = allJobs.filter((job) => job.status === "open").length;
+  const openProjectsCount = projects.filter((p) => (p.status || "open") === "open").length;
 
   return (
     <DashboardLayout>
@@ -123,7 +72,7 @@ const Jobs = () => {
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-foreground">Alla Jobb</h1>
             <p className="text-sm text-muted-foreground">
-              {openJobsCount} öppna projekt väntar på dig
+              {openProjectsCount} öppna projekt väntar på dig
             </p>
           </div>
         </div>
@@ -135,7 +84,7 @@ const Jobs = () => {
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Sök jobb, företag eller teknologi..."
+              placeholder="Sök jobb, företag eller kategori..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 bg-background"
@@ -160,30 +109,52 @@ const Jobs = () => {
       {/* Results Summary */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-muted-foreground">
-          Visar <span className="font-medium text-foreground">{filteredJobs.length}</span> av {allJobs.length} jobb
+          Visar <span className="font-medium text-foreground">{filteredProjects.length}</span> av {projects.length} jobb
         </p>
         <Badge variant="secondary" className="text-xs">
-          {openJobsCount} öppna
+          {openProjectsCount} öppna
         </Badge>
       </div>
 
-      {/* Database Projects */}
-      <ProjectList />
+      {/* Loading State */}
+      {loading && (
+        <div className="py-16 flex flex-col items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
+          <p className="text-muted-foreground">Laddar projekt...</p>
+        </div>
+      )}
 
-      {/* Mock Jobs Grid */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 mt-6">
-        {filteredJobs.map((job) => (
-          <JobCard key={job.id} {...job} />
-        ))}
-      </div>
+      {/* Jobs Grid */}
+      {!loading && filteredProjects.length > 0 && (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {filteredProjects.map((project) => (
+            <JobCard
+              key={project._id}
+              id={project._id}
+              title={project.title}
+              company={project.client?.name || "Kund"}
+              budget={`$${project.budget}`}
+              deadline="Öppen"
+              bidsCount={project.bids?.length || 0}
+              tags={[project.category]}
+              status={project.status || "open"}
+            />
+          ))}
+        </div>
+      )}
 
-      {filteredJobs.length === 0 && (
+      {/* Empty State */}
+      {!loading && filteredProjects.length === 0 && (
         <div className="py-16 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
             <Search className="h-8 w-8 text-muted-foreground" />
           </div>
           <p className="text-lg font-medium text-foreground mb-1">Inga jobb hittades</p>
-          <p className="text-muted-foreground">Försök med en annan sökterm eller filter</p>
+          <p className="text-muted-foreground">
+            {projects.length === 0 
+              ? "Det finns inga projekt ännu" 
+              : "Försök med en annan sökterm eller filter"}
+          </p>
         </div>
       )}
     </DashboardLayout>
