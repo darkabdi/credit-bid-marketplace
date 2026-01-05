@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
   useEffect(()=>{
     if (!user) return
     if (user.role) navigate('/Dashboard')
-    else navigate('/roles-selection')
+    else navigate('/role-selection')
 
   },[user])
 
