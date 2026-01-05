@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Search, Filter, Briefcase } from "lucide-react";
+import { Search, Briefcase } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { JobCard } from "@/components/dashboard/JobCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ProjectList } from "@/components/projects/ProjectList";
 
 const allJobs = [
   {
@@ -166,8 +167,11 @@ const Jobs = () => {
         </Badge>
       </div>
 
-      {/* Jobs Grid */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      {/* Database Projects */}
+      <ProjectList />
+
+      {/* Mock Jobs Grid */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 mt-6">
         {filteredJobs.map((job) => (
           <JobCard key={job.id} {...job} />
         ))}
