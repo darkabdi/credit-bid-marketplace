@@ -155,12 +155,7 @@ const FreelancerDashboard = () => {
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <ProjectList/>
-        {mockJobs.map((job) => (
-          <JobCard key={job.id} {...job} />
-        ))}
-      </div>
+      <ProjectList />
     </DashboardLayout>
   );
 };
