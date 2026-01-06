@@ -71,14 +71,14 @@ export function JobCard({
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-        <Link to={`/jobs/${id}`}>
-          <Button variant="outline" size="sm">
+      <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
+        <Link to={`/jobs/${id}`} className="w-full sm:w-auto">
+          <Button variant="outline" size="sm" className="w-full sm:w-auto">
             Visa detaljer
           </Button>
         </Link>
-            {user?.role === "freelancer" && status === "open" && (
-          <Button size="sm">
+        {user?.role === "freelancer" && status === "open" && (
+          <Button size="sm" className="w-full sm:w-auto">
             Place Bid
           </Button>
         )}
