@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, Briefcase, Shield, Zap, Users, CheckCircle, Star, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/components/ui/link";
+import { Link } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { useLanguage } from "@/lib/i18n";
 
@@ -84,10 +84,10 @@ const Landing = () => {
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
-            <Link href="/auth">
+            <Link to ="/auth">
               <Button variant="ghost" size="sm">{t('nav.signIn')}</Button>
             </Link>
-            <Link href="/auth">
+            <Link to ="/auth">
               <Button size="sm">{t('nav.getStarted')}</Button>
             </Link>
           </div>
@@ -111,7 +111,7 @@ const Landing = () => {
               {t('hero.description')}
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-fade-in">
-              <Link href="/create-project">
+              <Link to ="/create-project">
                 <Button size="lg" className="gap-2 px-8">
                   {t('hero.cta')}
                   <ArrowRight className="h-4 w-4" />

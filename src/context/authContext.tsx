@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login: AuthContextType["login"] = async (data) => {
     try {
+       console.log("Login called with data:", data)
       const res = await fetch(`https://cbm-be.onrender.com/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
