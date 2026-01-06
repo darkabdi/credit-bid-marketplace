@@ -1,12 +1,13 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Briefcase, FileText, Coins, TrendingUp, ArrowRight } from "lucide-react";
+import { Briefcase, FileText, Coins, TrendingUp, ArrowRight, Loader2 } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { StatsCard } from "@/components/dashboard/StatsCard";
 import { JobCard } from "@/components/dashboard/JobCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/context/authContext"; 
-import { ProjectList } from "@/components/projects/ProjectList";
+import { getProjects } from "@/services/projectServices";
 
 const mockJobs = [
   {
@@ -68,7 +69,22 @@ const activeContracts = [
 
 const FreelancerDashboard = () => {
   const { user } = useAuth();
+  const [dbProjects, setDbProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await getProjects();
+        setDbProjects(data);
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
   return (
     <DashboardLayout>
       {/* Page Header */}
@@ -155,17 +171,32 @@ const FreelancerDashboard = () => {
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {mockJobs.map((job) => (
-          <JobCard key={job.id} {...job} />
-        ))}
-      </div>
-
-      {/* Database Projects */}
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Projects from Database</h2>
-        <ProjectList />
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center py-8">
+          <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Database Projects */}
+          {dbProjects.map((project) => (
+            <JobCard
+              key={project._id}
+              id={project._id}
+              title={project.title}
+              company={project.client?.name || "Kund"}
+              budget={`$${project.budget}`}
+              deadline="Öppen"
+              bidsCount={project.bids?.length || 0}
+              tags={[project.category]}
+              status={project.status || "open"}
+            />
+          ))}
+          {/* Mock Jobs */}
+          {mockJobs.map((job) => (
+            <JobCard key={job.id} {...job} />
+          ))}
+        </div>
+      )}
     </DashboardLayout>
   );
 };
