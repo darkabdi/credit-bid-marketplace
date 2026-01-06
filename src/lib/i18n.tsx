@@ -278,6 +278,10 @@ const translations = {
     'common.close': 'Stäng',
     'common.submit': 'Skicka',
     'common.client': 'Kund',
+
+    // TopBar
+    'search': 'Sök jobb, bud...',
+    'buyCredits': 'Köp krediter',
   },
   en: {
     // Navigation
@@ -548,6 +552,10 @@ const translations = {
     'common.close': 'Close',
     'common.submit': 'Submit',
     'common.client': 'Client',
+
+    // TopBar
+    'search': 'Search jobs, bids...',
+    'buyCredits': 'Buy Credits',
   },
 };
 
