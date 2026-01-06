@@ -75,7 +75,7 @@ const Landing = () => {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Briefcase className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-lg font-semibold text-foreground">BidHub</span>
+            <span className="text-lg font-semibold text-foreground">Offera</span>
           </div>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t('nav.features')}</a>
@@ -314,7 +314,7 @@ const Landing = () => {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                 <Briefcase className="h-4 w-4 text-primary-foreground" />
               </div>
-              <span className="font-semibold text-foreground">BidHub</span>
+              <span className="font-semibold text-foreground">Offera</span>
             </div>
             <div className="flex gap-8 text-sm text-muted-foreground">
               <a href="#" className="hover:text-foreground transition-colors">{t('footer.privacy')}</a>
