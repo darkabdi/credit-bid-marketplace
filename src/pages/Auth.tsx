@@ -6,38 +6,34 @@ import { Label } from "@/components/ui/label";
 import { Link } from "@/components/ui/link";
 import { useAuth } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
-
-
-  
-  const Auth = () => {
-  const {login , signup , user} = useAuth()
-  const navigate = useNavigate()
+const Auth = () => {
+  const { login, signup, user } = useAuth();
+  const navigate = useNavigate();
+  const { t } = useLanguage();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-
-  useEffect(()=>{
-    if (!user) return
-    if (user.role) navigate('/Dashboard')
-    else navigate('/role-selection')
-
-  },[user])
+  useEffect(() => {
+    if (!user) return;
+    if (user.role) navigate('/Dashboard');
+    else navigate('/role-selection');
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-   try {
-    if (isLogin){
-       await login({email ,password})
-    }else{
-      await signup({email , password , name})
+    e.preventDefault();
+    try {
+      if (isLogin) {
+        await login({ email, password });
+      } else {
+        await signup({ email, password, name });
+      }
+    } catch (error) {
+      console.error(error);
     }
-   
-   } catch (error) {
-    
-   }
   };
 
   return (
@@ -56,12 +52,12 @@ import { useNavigate } from "react-router-dom";
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-foreground">
-              {isLogin ? "Welcome back" : "Create your account"}
+              {isLogin ? t('auth.welcomeBack') : t('auth.createAccount')}
             </h1>
             <p className="mt-2 text-muted-foreground">
               {isLogin
-                ? "Enter your credentials to access your account"
-                : "Start connecting with quality contractors today"}
+                ? t('auth.enterCredentials')
+                : t('auth.startConnecting')}
             </p>
           </div>
 
@@ -69,7 +65,7 @@ import { useNavigate } from "react-router-dom";
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-foreground">Full Name</Label>
+                <Label htmlFor="name" className="text-foreground">{t('auth.fullName')}</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -85,7 +81,7 @@ import { useNavigate } from "react-router-dom";
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground">Email</Label>
+              <Label htmlFor="email" className="text-foreground">{t('auth.email')}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -101,10 +97,10 @@ import { useNavigate } from "react-router-dom";
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-foreground">Password</Label>
+                <Label htmlFor="password" className="text-foreground">{t('auth.password')}</Label>
                 {isLogin && (
                   <a href="#" className="text-sm text-primary hover:text-primary/80 transition-colors">
-                    Forgot password?
+                    {t('auth.forgotPassword')}
                   </a>
                 )}
               </div>
@@ -122,7 +118,7 @@ import { useNavigate } from "react-router-dom";
             </div>
 
             <Button type="submit" className="w-full h-11 gap-2 mt-6">
-              {isLogin ? "Sign In" : "Create Account"}
+              {isLogin ? t('auth.signIn') : t('auth.signUp')}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </form>
@@ -133,7 +129,7 @@ import { useNavigate } from "react-router-dom";
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-3 text-muted-foreground">Or continue with</span>
+              <span className="bg-background px-3 text-muted-foreground">{t('auth.orContinueWith')}</span>
             </div>
           </div>
 
@@ -170,13 +166,13 @@ import { useNavigate } from "react-router-dom";
 
           {/* Toggle */}
           <p className="mt-8 text-center text-sm text-muted-foreground">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+            {isLogin ? t('auth.noAccount') : t('auth.haveAccount')}{" "}
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
               className="font-medium text-primary hover:text-primary/80 transition-colors"
             >
-              {isLogin ? "Sign up" : "Sign in"}
+              {isLogin ? t('auth.signUp') : t('auth.signIn')}
             </button>
           </p>
         </div>
@@ -194,25 +190,25 @@ import { useNavigate } from "react-router-dom";
             <Briefcase className="h-8 w-8 text-primary-foreground" />
           </div>
           <h2 className="text-3xl font-bold text-primary-foreground mb-4">
-            Connect with Quality
+            {t('auth.connectQuality')}
           </h2>
           <p className="text-primary-foreground/80 max-w-sm leading-relaxed">
-            Join thousands of businesses and contractors building successful partnerships on BidHub.
+            {t('auth.joinThousands')}
           </p>
           <div className="mt-12 flex items-center gap-6 text-primary-foreground/80">
             <div className="text-center">
               <p className="text-2xl font-bold text-primary-foreground">50K+</p>
-              <p className="text-sm">Jobs Posted</p>
+              <p className="text-sm">{t('stats.jobsPosted')}</p>
             </div>
             <div className="w-px h-12 bg-primary-foreground/20" />
             <div className="text-center">
               <p className="text-2xl font-bold text-primary-foreground">15K+</p>
-              <p className="text-sm">Contractors</p>
+              <p className="text-sm">{t('stats.contractors')}</p>
             </div>
             <div className="w-px h-12 bg-primary-foreground/20" />
             <div className="text-center">
               <p className="text-2xl font-bold text-primary-foreground">98%</p>
-              <p className="text-sm">Satisfaction</p>
+              <p className="text-sm">{t('stats.satisfaction')}</p>
             </div>
           </div>
         </div>

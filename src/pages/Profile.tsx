@@ -9,9 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/context/authContext";
+import { useLanguage } from "@/lib/i18n";
 
 const Profile = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: user?.name || "John Doe",
@@ -42,25 +44,25 @@ const Profile = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Profile</h1>
+            <h1 className="text-2xl font-semibold text-foreground">{t('profile.title')}</h1>
             <p className="text-muted-foreground mt-1">
-              Manage your profile information
+              {t('profile.subtitle')}
             </p>
           </div>
           {!isEditing ? (
             <Button onClick={() => setIsEditing(true)} variant="outline" className="gap-2">
               <Edit2 className="h-4 w-4" />
-              Edit Profile
+              {t('profile.editProfile')}
             </Button>
           ) : (
             <div className="flex gap-2">
               <Button onClick={handleCancel} variant="outline" className="gap-2">
                 <X className="h-4 w-4" />
-                Cancel
+                {t('profile.cancel')}
               </Button>
               <Button onClick={handleSave} className="gap-2 bg-primary hover:bg-primary/90">
                 <Save className="h-4 w-4" />
-                Save Changes
+                {t('profile.saveChanges')}
               </Button>
             </div>
           )}
@@ -88,21 +90,21 @@ const Profile = () => {
                 {isEditing ? (
                   <>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1 block">Name</label>
+                      <label className="text-sm font-medium text-foreground mb-1 block">{t('profile.name')}</label>
                       <Input
                         value={editForm.name}
                         onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1 block">Location</label>
+                      <label className="text-sm font-medium text-foreground mb-1 block">{t('profile.location')}</label>
                       <Input
                         value={editForm.location}
                         onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1 block">Bio</label>
+                      <label className="text-sm font-medium text-foreground mb-1 block">{t('profile.bio')}</label>
                       <Textarea
                         value={editForm.bio}
                         onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })}
@@ -110,7 +112,7 @@ const Profile = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1 block">Hourly Rate</label>
+                      <label className="text-sm font-medium text-foreground mb-1 block">{t('profile.hourlyRate')}</label>
                       <Input
                         value={editForm.hourlyRate}
                         onChange={(e) => setEditForm({ ...editForm, hourlyRate: e.target.value })}
@@ -144,21 +146,21 @@ const Profile = () => {
             <CardContent className="p-6 text-center">
               <Briefcase className="h-8 w-8 text-primary mx-auto mb-2" />
               <p className="text-2xl font-bold text-foreground">{profileData.completedProjects}</p>
-              <p className="text-sm text-muted-foreground">Completed Projects</p>
+              <p className="text-sm text-muted-foreground">{t('profile.completedProjects')}</p>
             </CardContent>
           </Card>
           <Card className="shadow-card border-border">
             <CardContent className="p-6 text-center">
               <span className="text-2xl mb-2 block">💰</span>
               <p className="text-2xl font-bold text-foreground">{profileData.hourlyRate}</p>
-              <p className="text-sm text-muted-foreground">Hourly Rate</p>
+              <p className="text-sm text-muted-foreground">{t('profile.hourlyRate')}</p>
             </CardContent>
           </Card>
           <Card className="shadow-card border-border">
             <CardContent className="p-6 text-center">
               <Calendar className="h-8 w-8 text-primary mx-auto mb-2" />
               <p className="text-2xl font-bold text-foreground">{profileData.memberSince}</p>
-              <p className="text-sm text-muted-foreground">Member Since</p>
+              <p className="text-sm text-muted-foreground">{t('profile.memberSince')}</p>
             </CardContent>
           </Card>
         </div>
@@ -166,7 +168,7 @@ const Profile = () => {
         {/* Skills Section */}
         <Card className="shadow-card border-border">
           <CardHeader>
-            <CardTitle className="text-lg">Skills</CardTitle>
+            <CardTitle className="text-lg">{t('profile.skills')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">

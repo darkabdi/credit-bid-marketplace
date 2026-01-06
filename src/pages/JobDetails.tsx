@@ -3,6 +3,7 @@ import { ArrowLeft, Clock, DollarSign, Users, MapPin, Briefcase } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import { useLanguage } from "@/lib/i18n";
 
 const jobsData = [
   {
@@ -87,16 +88,17 @@ const jobsData = [
 
 export default function JobDetails() {
   const { id } = useParams<{ id: string }>();
+  const { t } = useLanguage();
   const job = jobsData.find(j => j.id === id);
 
   if (!job) {
     return (
       <DashboardLayout>
         <div className="text-center py-12">
-          <h1 className="text-2xl font-semibold text-foreground">Jobbet hittades inte</h1>
-          <p className="text-muted-foreground mt-2">Det efterfrågade jobbet kunde inte hittas.</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('jobDetails.notFound')}</h1>
+          <p className="text-muted-foreground mt-2">{t('jobDetails.notFoundDesc')}</p>
           <Link to="/jobs">
-            <Button className="mt-4">Tillbaka till jobb</Button>
+            <Button className="mt-4">{t('jobDetails.backToJobs')}</Button>
           </Link>
         </div>
       </DashboardLayout>
@@ -110,9 +112,9 @@ export default function JobDetails() {
   };
 
   const statusLabels = {
-    open: "Öppen",
-    "in-progress": "Pågående",
-    closed: "Stängd",
+    open: t('jobCard.statusOpen'),
+    "in-progress": t('jobCard.statusInProgress'),
+    closed: t('jobCard.statusClosed'),
   };
 
   return (
@@ -121,7 +123,7 @@ export default function JobDetails() {
         {/* Back button */}
         <Link to="/jobs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors">
           <ArrowLeft className="h-4 w-4" />
-          <span>Tillbaka till jobb</span>
+          <span>{t('jobDetails.backToJobs')}</span>
         </Link>
 
         {/* Header */}
@@ -136,7 +138,7 @@ export default function JobDetails() {
               </div>
               <p className="text-lg text-muted-foreground">{job.company}</p>
             </div>
-            <Button size="lg">Lägg bud</Button>
+            <Button size="lg">{t('jobCard.placeBid')}</Button>
           </div>
 
           <div className="flex flex-wrap gap-2 mt-4">
@@ -149,28 +151,28 @@ export default function JobDetails() {
             <div className="flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Budget</p>
+                <p className="text-xs text-muted-foreground">{t('jobDetails.budget')}</p>
                 <p className="font-medium text-foreground">{job.budget}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Deadline</p>
+                <p className="text-xs text-muted-foreground">{t('jobDetails.deadline')}</p>
                 <p className="font-medium text-foreground">{job.deadline}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Bud</p>
-                <p className="font-medium text-foreground">{job.bidsCount} bud</p>
+                <p className="text-xs text-muted-foreground">{t('jobDetails.bids')}</p>
+                <p className="font-medium text-foreground">{job.bidsCount} {t('jobCard.bids')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="text-xs text-muted-foreground">Plats</p>
+                <p className="text-xs text-muted-foreground">{t('jobDetails.location')}</p>
                 <p className="font-medium text-foreground">{job.location}</p>
               </div>
             </div>
@@ -181,14 +183,14 @@ export default function JobDetails() {
         <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
           <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Briefcase className="h-5 w-5" />
-            Beskrivning
+            {t('jobDetails.description')}
           </h2>
           <p className="text-muted-foreground leading-relaxed">{job.description}</p>
         </div>
 
         {/* Requirements */}
         <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Krav</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-4">{t('jobDetails.requirements')}</h2>
           <ul className="space-y-2">
             {job.requirements.map((req, index) => (
               <li key={index} className="flex items-start gap-2 text-muted-foreground">
@@ -201,7 +203,7 @@ export default function JobDetails() {
 
         {/* Deliverables */}
         <div className="bg-card rounded-xl border border-border p-6 shadow-card mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Leverabler</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-4">{t('jobDetails.deliverables')}</h2>
           <ul className="space-y-2">
             {job.deliverables.map((del, index) => (
               <li key={index} className="flex items-start gap-2 text-muted-foreground">
@@ -214,8 +216,8 @@ export default function JobDetails() {
 
         {/* Actions */}
         <div className="flex gap-4">
-          <Button size="lg" className="flex-1">Lägg bud</Button>
-          <Button size="lg" variant="outline">Kontakta kund</Button>
+          <Button size="lg" className="flex-1">{t('jobCard.placeBid')}</Button>
+          <Button size="lg" variant="outline">{t('jobDetails.contactClient')}</Button>
         </div>
       </div>
     </DashboardLayout>

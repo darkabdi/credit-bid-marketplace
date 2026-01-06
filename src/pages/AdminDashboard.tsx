@@ -17,12 +17,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/context/authContext";
+import { useLanguage } from "@/lib/i18n";
+
 interface StatsCardProps {
-    title: String
-    value: string
-    trend: any
-
-
+  title: String;
+  value: string;
+  trend: any;
 }
 
 const recentDisputes = [
@@ -120,79 +120,90 @@ const recentJobs = [
   },
 ];
 
-const getDisputeStatusBadge = (status: string) => {
-  switch (status) {
-    case "pending":
-      return <Badge variant="outline" className="text-warning border-warning"><Clock className="h-3 w-3 mr-1" /> Pending</Badge>;
-    case "in-review":
-      return <Badge variant="outline" className="text-primary border-primary"><Eye className="h-3 w-3 mr-1" /> In Review</Badge>;
-    case "resolved":
-      return <Badge variant="outline" className="text-success border-success"><CheckCircle className="h-3 w-3 mr-1" /> Resolved</Badge>;
-    default:
-      return <Badge variant="outline">{status}</Badge>;
-  }
-};
-
-const getJobStatusBadge = (status: string) => {
-  switch (status) {
-    case "active":
-      return <Badge className="bg-success/10 text-success hover:bg-success/20">Active</Badge>;
-    case "under-review":
-      return <Badge className="bg-primary/10 text-primary hover:bg-primary/20">Under Review</Badge>;
-    case "flagged":
-      return <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20">Flagged</Badge>;
-    default:
-      return <Badge variant="outline">{status}</Badge>;
-  }
-};
-
-const getUserStatusBadge = (status: string) => {
-  switch (status) {
-    case "active":
-      return <Badge className="bg-success/10 text-success hover:bg-success/20">Active</Badge>;
-    case "pending":
-      return <Badge className="bg-warning/10 text-warning hover:bg-warning/20">Pending</Badge>;
-    case "suspended":
-      return <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20">Suspended</Badge>;
-    default:
-      return <Badge variant="outline">{status}</Badge>;
-  }
-};
-
 const AdminDashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
+
+  const getDisputeStatusBadge = (status: string) => {
+    switch (status) {
+      case "pending":
+        return (
+          <Badge variant="outline" className="text-warning border-warning">
+            <Clock className="h-3 w-3 mr-1" /> {t('admin.pending')}
+          </Badge>
+        );
+      case "in-review":
+        return (
+          <Badge variant="outline" className="text-primary border-primary">
+            <Eye className="h-3 w-3 mr-1" /> {t('admin.inReview')}
+          </Badge>
+        );
+      case "resolved":
+        return (
+          <Badge variant="outline" className="text-success border-success">
+            <CheckCircle className="h-3 w-3 mr-1" /> {t('admin.resolved')}
+          </Badge>
+        );
+      default:
+        return <Badge variant="outline">{status}</Badge>;
+    }
+  };
+
+  const getJobStatusBadge = (status: string) => {
+    switch (status) {
+      case "active":
+        return <Badge className="bg-success/10 text-success hover:bg-success/20">{t('admin.active')}</Badge>;
+      case "under-review":
+        return <Badge className="bg-primary/10 text-primary hover:bg-primary/20">{t('admin.underReview')}</Badge>;
+      case "flagged":
+        return <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20">{t('admin.flagged')}</Badge>;
+      default:
+        return <Badge variant="outline">{status}</Badge>;
+    }
+  };
+
+  const getUserStatusBadge = (status: string) => {
+    switch (status) {
+      case "active":
+        return <Badge className="bg-success/10 text-success hover:bg-success/20">{t('admin.active')}</Badge>;
+      case "pending":
+        return <Badge className="bg-warning/10 text-warning hover:bg-warning/20">{t('admin.pending')}</Badge>;
+      case "suspended":
+        return <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20">{t('admin.suspended')}</Badge>;
+      default:
+        return <Badge variant="outline">{status}</Badge>;
+    }
+  };
 
   return (
     <DashboardLayout>
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-        <p className="text-muted-foreground mt-1">
-          Platform overview and management tools
-        </p>
+        <h1 className="text-3xl font-bold tracking-tight">{t('admin.title')}</h1>
+        <p className="text-muted-foreground mt-1">{t('admin.subtitle')}</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
         <StatsCard
-          title="Total Users"
+          title={t('admin.totalUsers')}
           value="2,847"
-          trend={{ value: "156 new this month", positive: true }}
+          trend={{ value: `156 ${t('admin.newThisMonth')}`, positive: true }}
         />
         <StatsCard
-          title="Active Jobs"
+          title={t('admin.activeJobs')}
           value="342"
-          trend={{ value: "28 new today", positive: true }}
+          trend={{ value: `28 ${t('admin.newToday')}`, positive: true }}
         />
         <StatsCard
-          title="Open Disputes"
+          title={t('admin.openDisputes')}
           value="12"
-          trend={{ value: "3 pending review", positive: false }}
+          trend={{ value: `3 ${t('admin.pendingReview')}`, positive: false }}
         />
         <StatsCard
-          title="Platform Revenue"
+          title={t('admin.platformRevenue')}
           value="$48,250"
-          trend={{ value: "18% vs last month", positive: true }}
+          trend={{ value: `18% ${t('admin.vsLastMonth')}`, positive: true }}
         />
       </div>
 
@@ -203,11 +214,11 @@ const AdminDashboard = () => {
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-warning" />
-              Recent Disputes
+              {t('admin.recentDisputes')}
             </CardTitle>
             <Button variant="ghost" size="sm" asChild>
               <Link to="/admin/disputes" className="flex items-center gap-1">
-                View All <ArrowRight className="h-4 w-4" />
+                {t('freelancer.viewAll')} <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </CardHeader>
@@ -240,11 +251,11 @@ const AdminDashboard = () => {
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Briefcase className="h-5 w-5 text-primary" />
-              Recent Jobs
+              {t('admin.recentJobs')}
             </CardTitle>
             <Button variant="ghost" size="sm" asChild>
               <Link to="/admin/jobs" className="flex items-center gap-1">
-                View All <ArrowRight className="h-4 w-4" />
+                {t('freelancer.viewAll')} <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </CardHeader>
@@ -258,7 +269,9 @@ const AdminDashboard = () => {
                   <div className="space-y-1 flex-1">
                     <p className="font-medium text-sm">{job.title}</p>
                     <p className="text-xs text-muted-foreground">{job.client}</p>
-                    <p className="text-xs text-muted-foreground">{job.bids} bids · {job.posted}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {job.bids} {t('jobCard.bids')} · {job.posted}
+                    </p>
                   </div>
                   <div className="text-right space-y-2">
                     <p className="text-sm font-semibold">{job.budget}</p>
@@ -276,11 +289,11 @@ const AdminDashboard = () => {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Users className="h-5 w-5 text-primary" />
-            Recent Users
+            {t('admin.recentUsers')}
           </CardTitle>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/admin/users" className="flex items-center gap-1">
-              View All <ArrowRight className="h-4 w-4" />
+              {t('freelancer.viewAll')} <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </CardHeader>
@@ -289,31 +302,46 @@ const AdminDashboard = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Name</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Email</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Joined</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-muted-foreground">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.name')}
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.email')}
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.type')}
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.status')}
+                  </th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.joined')}
+                  </th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-muted-foreground">
+                    {t('admin.actions')}
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {recentUsers.map((user) => (
-                  <tr key={user.id} className="border-b last:border-0 hover:bg-muted/50 transition-colors">
+                {recentUsers.map((userItem) => (
+                  <tr
+                    key={userItem.id}
+                    className="border-b last:border-0 hover:bg-muted/50 transition-colors"
+                  >
                     <td className="py-3 px-4">
-                      <p className="font-medium text-sm">{user.name}</p>
+                      <p className="font-medium text-sm">{userItem.name}</p>
                     </td>
                     <td className="py-3 px-4">
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                      <p className="text-sm text-muted-foreground">{userItem.email}</p>
                     </td>
                     <td className="py-3 px-4">
-                      <Badge variant="outline" className="capitalize">{user.type}</Badge>
+                      <Badge variant="outline" className="capitalize">
+                        {userItem.type}
+                      </Badge>
                     </td>
+                    <td className="py-3 px-4">{getUserStatusBadge(userItem.status)}</td>
                     <td className="py-3 px-4">
-                      {getUserStatusBadge(user.status)}
-                    </td>
-                    <td className="py-3 px-4">
-                      <p className="text-sm text-muted-foreground">{user.joinedDate}</p>
+                      <p className="text-sm text-muted-foreground">{userItem.joinedDate}</p>
                     </td>
                     <td className="py-3 px-4 text-right">
                       <Button variant="ghost" size="sm">

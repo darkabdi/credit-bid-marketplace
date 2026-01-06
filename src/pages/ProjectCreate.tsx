@@ -15,29 +15,11 @@ import {
 import { Link } from "@/components/ui/link";
 import { createProject } from "@/services/projectServices";
 import { useNavigate } from "react-router";
-
-
-
-const steps = [
-  { id: 1, title: "Basics", description: "Project title & category" },
-  { id: 2, title: "Budget", description: "Set your budget" },
-  { id: 3, title: "Details", description: "Describe your project" },
-  { id: 4, title: "Files", description: "Upload attachments" },
-];
-
-const categories = [
-  "Web Development",
-  "Mobile Development",
-  "UI/UX Design",
-  "Data Analysis",
-  "Content Writing",
-  "Marketing",
-  "Video Production",
-  "Other",
-];
+import { useLanguage } from "@/lib/i18n";
 
 const ProjectCreate = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     title: "",
@@ -46,6 +28,24 @@ const ProjectCreate = () => {
     description: "",
     files: [] as File[],
   });
+
+  const steps = [
+    { id: 1, title: t('projectCreate.basics'), description: t('projectCreate.basicsDesc') },
+    { id: 2, title: t('projectCreate.budget'), description: t('projectCreate.budgetDesc') },
+    { id: 3, title: t('projectCreate.details'), description: t('projectCreate.detailsDesc') },
+    { id: 4, title: t('projectCreate.files'), description: t('projectCreate.filesDesc') },
+  ];
+
+  const categories = [
+    { value: "Web Development", label: t('category.webDevelopment') },
+    { value: "Mobile Development", label: t('category.mobileDevelopment') },
+    { value: "UI/UX Design", label: t('category.uiuxDesign') },
+    { value: "Data Analysis", label: t('category.dataAnalysis') },
+    { value: "Content Writing", label: t('category.contentWriting') },
+    { value: "Marketing", label: t('category.marketing') },
+    { value: "Video Production", label: t('category.videoProduction') },
+    { value: "Other", label: t('category.other') },
+  ];
 
   const handleNext = () => {
     if (currentStep < 4) setCurrentStep(currentStep + 1);
@@ -60,20 +60,21 @@ const ProjectCreate = () => {
       setFormData({ ...formData, files: Array.from(e.target.files) });
     }
   };
-  const handleSubmit = async ()=>{
+
+  const handleSubmit = async () => {
     try {
       await createProject({
-      title: formData.title,
-      category: formData.category,
-      budget: Number(formData.budget),
-      description: formData.description,
-      })
-      navigate('/dashboard')
+        title: formData.title,
+        category: formData.category,
+        budget: Number(formData.budget),
+        description: formData.description,
+      });
+      navigate('/dashboard');
     } catch (error: any) {
-      console.error(error)
-      alert(error.message)
+      console.error(error);
+      alert(error.message);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -82,7 +83,7 @@ const ProjectCreate = () => {
         <div className="container mx-auto px-6 py-4">
           <Link href="/dashboard" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="h-4 w-4" />
-            Back to Dashboard
+            {t('projectCreate.backToDashboard')}
           </Link>
         </div>
       </header>
@@ -132,28 +133,28 @@ const ProjectCreate = () => {
             {currentStep === 1 && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="title">Project Title</Label>
+                  <Label htmlFor="title">{t('projectCreate.projectTitle')}</Label>
                   <Input
                     id="title"
-                    placeholder="Enter a clear, descriptive title"
+                    placeholder={t('projectCreate.titlePlaceholder')}
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     className="h-12"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category">{t('projectCreate.category')}</Label>
                   <Select
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
                   >
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue placeholder={t('projectCreate.selectCategory')} />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((cat) => (
-                        <SelectItem key={cat} value={cat}>
-                          {cat}
+                        <SelectItem key={cat.value} value={cat.value}>
+                          {cat.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -165,7 +166,7 @@ const ProjectCreate = () => {
             {/* Step 2: Budget */}
             {currentStep === 2 && (
               <div className="space-y-2">
-                <Label htmlFor="budget">Budget (USD)</Label>
+                <Label htmlFor="budget">{t('projectCreate.budgetUSD')}</Label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
                   <Input
@@ -178,7 +179,7 @@ const ProjectCreate = () => {
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Set a realistic budget to attract quality contractors
+                  {t('projectCreate.budgetHint')}
                 </p>
               </div>
             )}
@@ -186,16 +187,16 @@ const ProjectCreate = () => {
             {/* Step 3: Description */}
             {currentStep === 3 && (
               <div className="space-y-2">
-                <Label htmlFor="description">Project Description</Label>
+                <Label htmlFor="description">{t('projectCreate.projectDescription')}</Label>
                 <Textarea
                   id="description"
-                  placeholder="Describe your project requirements, goals, and any specific details contractors should know..."
+                  placeholder={t('projectCreate.descriptionPlaceholder')}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   className="min-h-[200px] resize-none"
                 />
                 <p className="text-sm text-muted-foreground">
-                  Be specific about deliverables and timeline expectations
+                  {t('projectCreate.descriptionHint')}
                 </p>
               </div>
             )}
@@ -203,17 +204,17 @@ const ProjectCreate = () => {
             {/* Step 4: Files */}
             {currentStep === 4 && (
               <div className="space-y-4">
-                <Label>Attachments (Optional)</Label>
+                <Label>{t('projectCreate.attachments')}</Label>
                 <div
                   className="border-2 border-dashed border-[hsl(var(--nordic-grey-dark))] rounded-xl p-10 text-center hover:border-[hsl(var(--moss))] transition-colors cursor-pointer"
                   onClick={() => document.getElementById("file-upload")?.click()}
                 >
                   <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-4" />
                   <p className="text-sm font-medium text-foreground">
-                    Drop files here or click to upload
+                    {t('projectCreate.dropFiles')}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    PDF, DOC, PNG, JPG up to 10MB
+                    {t('projectCreate.fileTypes')}
                   </p>
                   <input
                     id="file-upload"
@@ -248,24 +249,24 @@ const ProjectCreate = () => {
                 className="gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Back
+                {t('projectCreate.back')}
               </Button>
               {currentStep < 4 ? (
                 <Button
                   onClick={handleNext}
                   className="gap-2 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90"
                 >
-                  Continue
+                  {t('projectCreate.continue')}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               ) : (
-              <Button
-                className="gap-2 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90"
-                onClick={handleSubmit}
-              >
-                <Check className="h-4 w-4" />
-                Create Project
-              </Button>
+                <Button
+                  className="gap-2 bg-[hsl(var(--moss))] hover:bg-[hsl(var(--moss))]/90"
+                  onClick={handleSubmit}
+                >
+                  <Check className="h-4 w-4" />
+                  {t('projectCreate.createProject')}
+                </Button>
               )}
             </div>
           </CardContent>

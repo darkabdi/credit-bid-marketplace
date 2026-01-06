@@ -14,22 +14,24 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/context/authContext";
 import { Button } from "@/components/ui/button";
-
-const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: Briefcase, label: "Jobs", href: "/jobs" },
-  { icon: FileText, label: "Bids", href: "/bids" },
-  { icon: Coins, label: "Credits", href: "/credits" },
-  { icon: MessageSquare, label: "Messages", href: "/messages" },
-  { icon: User, label: "Profile", href: "/profile" },
-];
+import { useLanguage } from "@/lib/i18n";
 
 export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { state } = useSidebar();
   const { logout } = useAuth();
+  const { t } = useLanguage();
   const isCollapsed = state === "collapsed";
+
+  const navItems = [
+    { icon: LayoutDashboard, label: t('sidebar.dashboard'), href: "/dashboard" },
+    { icon: Briefcase, label: t('sidebar.jobs'), href: "/jobs" },
+    { icon: FileText, label: t('sidebar.bids'), href: "/bids" },
+    { icon: Coins, label: t('sidebar.credits'), href: "/credits" },
+    { icon: MessageSquare, label: t('sidebar.messages'), href: "/messages" },
+    { icon: User, label: t('sidebar.profile'), href: "/profile" },
+  ];
 
   const handleLogout = () => {
     logout();
@@ -56,7 +58,7 @@ export function AppSidebar() {
               {navItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <SidebarMenuItem key={item.label}>
+                  <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
@@ -82,7 +84,7 @@ export function AppSidebar() {
           className={`w-full justify-start gap-3 text-sidebar-foreground hover:bg-destructive/10 hover:text-destructive ${isCollapsed ? "px-2" : "px-3"}`}
         >
           <LogOut className="h-5 w-5" />
-          {!isCollapsed && <span>Logout</span>}
+          {!isCollapsed && <span>{t('sidebar.logout')}</span>}
         </Button>
       </SidebarFooter>
     </Sidebar>

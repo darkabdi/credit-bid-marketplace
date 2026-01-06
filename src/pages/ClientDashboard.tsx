@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
 const mockProjects = [
   {
@@ -102,22 +103,23 @@ const pendingMilestones = [
 
 const ClientDashboard = () => {
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <DashboardLayout>
       {/* Page Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('sidebar.dashboard')}</h1>
           <p className="text-muted-foreground mt-1">
-            Welcome back, {user?.name}. Manage your projects.
+            {t('dashboard.welcome')}, {user?.name}. {t('dashboard.manageProjects')}
           </p>
         </div>
         <Button asChild>
           <Link to="/create-project" className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
-            Post New Project
+            {t('client.postNewProject')}
           </Link>
         </Button>
       </div>
@@ -125,21 +127,21 @@ const ClientDashboard = () => {
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
         <StatsCard
-          title="Active Projects"
+          title={t('client.activeProjects')}
           value="4"
-          trend={{ value: "2 in progress", positive: true }}
+          trend={{ value: `2 ${t('client.inProgress')}`, positive: true }}
         />
         <StatsCard
-          title="Pending Proposals"
+          title={t('client.pendingProposals')}
           value="20"
-          trend={{ value: "5 new today", positive: true }}
+          trend={{ value: `5 ${t('client.newToday')}`, positive: true }}
         />
         <StatsCard
-          title="Total Spent"
+          title={t('client.totalSpent')}
           value="$48,250"
         />
         <StatsCard
-          title="Active Freelancers"
+          title={t('client.activeFreelancers')}
           value="3"
         />
       </div>
@@ -149,10 +151,10 @@ const ClientDashboard = () => {
         {/* Pending Proposals */}
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Recent Proposals</CardTitle>
+            <CardTitle>{t('client.recentProposals')}</CardTitle>
             <Button variant="ghost" size="sm" asChild>
               <Link to="/client/proposals" className="flex items-center gap-1">
-                View All <ArrowRight className="h-4 w-4" />
+                {t('freelancer.viewAll')} <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </CardHeader>
@@ -175,7 +177,7 @@ const ClientDashboard = () => {
                   <div className="text-right">
                     <p className="font-semibold text-primary">{proposal.amount}</p>
                     <p className="text-xs text-muted-foreground">
-                      ⭐ {proposal.rating} · {proposal.completedJobs} jobs
+                      ⭐ {proposal.rating} · {proposal.completedJobs} {t('client.jobs')}
                     </p>
                   </div>
                 </div>
@@ -189,7 +191,7 @@ const ClientDashboard = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              Pending Milestones
+              {t('client.pendingMilestones')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -203,12 +205,12 @@ const ClientDashboard = () => {
                   <p className="text-xs text-muted-foreground">{milestone.project}</p>
                   <div className="flex items-center justify-between pt-2 border-t">
                     <span className="text-sm font-semibold text-primary">{milestone.amount}</span>
-                    <span className="text-xs text-muted-foreground">Due: {milestone.dueDate}</span>
+                    <span className="text-xs text-muted-foreground">{t('freelancer.due')}: {milestone.dueDate}</span>
                   </div>
                 </div>
               ))}
               <Button variant="outline" className="w-full" size="sm">
-                Approve All
+                {t('client.approveAll')}
               </Button>
             </div>
           </CardContent>
@@ -218,13 +220,13 @@ const ClientDashboard = () => {
       {/* Projects Section */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold">Your Projects</h2>
+          <h2 className="text-xl font-semibold">{t('client.yourProjects')}</h2>
           <p className="text-sm text-muted-foreground">
-            Monitor progress and manage your posted projects
+            {t('client.monitorProgress')}
           </p>
         </div>
         <Button variant="outline" asChild>
-          <Link to="/client/projects">View All Projects</Link>
+          <Link to="/client/projects">{t('client.viewAllProjects')}</Link>
         </Button>
       </div>
 
