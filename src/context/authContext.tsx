@@ -18,7 +18,7 @@ export type AuthContextType = {
   updateRole: (role: string) => Promise<boolean>;
   logout: () => void;
 }
-const API_URL = "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
