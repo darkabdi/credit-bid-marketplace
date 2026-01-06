@@ -13,24 +13,21 @@ export function TopBar({ onOpenChat }: TopBarProps) {
   const { t } = useLanguage();
 
   return (
-    <div className="flex flex-1 items-center justify-between">
-      {/* Search - hidden on mobile */}
-      <div className="hidden md:flex items-center gap-4">
-        <div className="relative">
+    <div className="flex flex-1 items-center justify-between gap-2">
+      {/* Search */}
+      <div className="flex items-center gap-4 flex-1 min-w-0">
+        <div className="relative flex-1 max-w-80">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
             type="text"
             placeholder={t('search')}
-            className="h-10 w-80 rounded-lg border border-input bg-background pl-10 pr-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            className="h-10 w-full rounded-lg border border-input bg-background pl-10 pr-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-3 ml-auto">
-        {/* Language switcher - hidden on mobile */}
-        <div className="hidden sm:block">
-          <LanguageSwitcher />
-        </div>
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <LanguageSwitcher />
         
         {/* Credits button - icon only on mobile */}
         <Button variant="accent" size="sm" className="gap-2 px-2 sm:px-3">
@@ -38,9 +35,9 @@ export function TopBar({ onOpenChat }: TopBarProps) {
           <span className="hidden sm:inline">{t('buyCredits')}</span>
         </Button>
 
-        <button className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg transition-colors hover:bg-secondary">
+        <button className="relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-secondary">
           <Bell className="h-5 w-5 text-muted-foreground" />
-          <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2 h-2 w-2 rounded-full bg-accent" />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-accent" />
         </button>
 
         {/* User info - name hidden on mobile, avatar always visible */}
@@ -49,8 +46,8 @@ export function TopBar({ onOpenChat }: TopBarProps) {
             <p className="text-sm font-medium text-foreground">{user?.name || "Loading..."}</p>
             <p className="text-xs text-muted-foreground">{user?.role}</p>
           </div>
-          <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary shrink-0">
-            <User className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary shrink-0">
+            <User className="h-5 w-5 text-primary-foreground" />
           </div>
         </div>
       </div>
