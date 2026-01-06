@@ -10,7 +10,7 @@ type CreateProjectInput = {
 export const createProject = async (projectData: CreateProjectInput) => {
 const token = localStorage.getItem("token");
 
-  const res = await fetch(`${API_URL}/projects`, {
+  const res = await fetch(`${API_URL}/api/projects`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const token = localStorage.getItem("token");
   return data;
 };
 export const getProjects = async () => {
-  const res = await fetch(`${API_URL}/projects`);
+  const res = await fetch(`${API_URL}/api/projects`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch projects");
