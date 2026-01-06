@@ -46,7 +46,7 @@ const translations = {
     'features.vetted.description': 'Få tillgång till ett nätverk av verifierade entreprenörer med beprövade meriter och kundomdömen.',
     
     // How it works
-    'howItWorks.title': 'Hur BidHub fungerar',
+    'howItWorks.title': 'Hur Offera fungerar',
     'howItWorks.subtitle': 'Gå från projektidé till färdigt arbete i fyra enkla steg',
     'howItWorks.step1.title': 'Publicera ditt projekt',
     'howItWorks.step1.description': 'Beskriv dina krav, sätt en budget och publicera din jobbannons.',
@@ -60,9 +60,9 @@ const translations = {
     // Testimonials
     'testimonials.title': 'Betrodd av branschledare',
     'testimonials.subtitle': 'Se vad våra kunder och entreprenörer säger',
-    'testimonial1.content': 'BidHub förändrade hur vi rekryterar utvecklartalanger. Vi hittade vår lead-utvecklare inom en vecka.',
+    'testimonial1.content': 'Offera förändrade hur vi rekryterar utvecklartalanger. Vi hittade vår lead-utvecklare inom en vecka.',
     'testimonial2.content': 'Kreditsystemet är genialt. Jag bjuder bara på projekt jag verkligen är intresserad av, vilket sparar tid för alla.',
-    'testimonial3.content': 'Professionellt, effektivt och pålitligt. BidHub är nu vår förstahandsplattform för alla entreprenörsbehov.',
+    'testimonial3.content': 'Professionellt, effektivt och pålitligt. Offera är nu vår förstahandsplattform för alla entreprenörsbehov.',
     
     // Contact Form
     'contact.title': 'Kontakta oss',
@@ -82,7 +82,7 @@ const translations = {
     'footer.terms': 'Villkor',
     'footer.support': 'Support',
     'footer.contact': 'Kontakt',
-    'footer.rights': '© 2024 BidHub. Alla rättigheter förbehållna.',
+    'footer.rights': '© 2024 Offera. Alla rättigheter förbehållna.',
 
     // Sidebar Navigation
     'sidebar.dashboard': 'Översikt',
@@ -209,7 +209,7 @@ const translations = {
     'auth.noAccount': 'Har du inget konto?',
     'auth.haveAccount': 'Har du redan ett konto?',
     'auth.connectQuality': 'Anslut med kvalitet',
-    'auth.joinThousands': 'Gå med tusentals företag och entreprenörer som bygger framgångsrika partnerskap på BidHub.',
+    'auth.joinThousands': 'Gå med tusentals företag och entreprenörer som bygger framgångsrika partnerskap på Offera.',
 
     // Profile Page
     'profile.title': 'Profil',
@@ -320,7 +320,7 @@ const translations = {
     'features.vetted.description': 'Access a network of verified contractors with proven track records and client reviews.',
     
     // How it works
-    'howItWorks.title': 'How BidHub Works',
+    'howItWorks.title': 'How Offera Works',
     'howItWorks.subtitle': 'Get from project idea to completed work in four simple steps',
     'howItWorks.step1.title': 'Post Your Project',
     'howItWorks.step1.description': 'Describe your requirements, set a budget, and publish your job listing.',
@@ -334,9 +334,9 @@ const translations = {
     // Testimonials
     'testimonials.title': 'Trusted by Industry Leaders',
     'testimonials.subtitle': 'See what our clients and contractors have to say',
-    'testimonial1.content': 'BidHub transformed how we source development talent. We found our lead engineer within a week.',
+    'testimonial1.content': 'Offera transformed how we source development talent. We found our lead engineer within a week.',
     'testimonial2.content': 'The credit system is brilliant. I only bid on projects I\'m genuinely interested in, saving everyone time.',
-    'testimonial3.content': 'Professional, efficient, and trustworthy. BidHub is now our go-to platform for all contractor needs.',
+    'testimonial3.content': 'Professional, efficient, and trustworthy. Offera is now our go-to platform for all contractor needs.',
     
     // Contact Form
     'contact.title': 'Contact Us',
@@ -356,7 +356,7 @@ const translations = {
     'footer.terms': 'Terms',
     'footer.support': 'Support',
     'footer.contact': 'Contact',
-    'footer.rights': '© 2024 BidHub. All rights reserved.',
+    'footer.rights': '© 2024 Offera. All rights reserved.',
 
     // Sidebar Navigation
     'sidebar.dashboard': 'Dashboard',
@@ -483,7 +483,7 @@ const translations = {
     'auth.noAccount': 'Don\'t have an account?',
     'auth.haveAccount': 'Already have an account?',
     'auth.connectQuality': 'Connect with Quality',
-    'auth.joinThousands': 'Join thousands of businesses and contractors building successful partnerships on BidHub.',
+    'auth.joinThousands': 'Join thousands of businesses and contractors building successful partnerships on Offera.',
 
     // Profile Page
     'profile.title': 'Profile',
