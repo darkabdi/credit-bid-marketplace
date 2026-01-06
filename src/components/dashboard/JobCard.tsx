@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/context/authContext";
+import { useLanguage } from "@/lib/i18n";
+
 interface JobCardProps {
   id: string;
   title: string;
@@ -25,11 +27,19 @@ export function JobCard({
   bidsCount, 
   tags, 
   status }: JobCardProps) {
-  const {user} = useAuth( )
+  const { user } = useAuth();
+  const { t } = useLanguage();
+
   const statusStyles = {
     open: "bg-success/10 text-success border-success/20",
     "in-progress": "bg-warning/10 text-warning border-warning/20",
     closed: "bg-muted text-muted-foreground border-border",
+  };
+
+  const statusLabels = {
+    open: t('jobCard.statusOpen'),
+    "in-progress": t('jobCard.statusInProgress'),
+    closed: t('jobCard.statusClosed'),
   };
 
   return (
@@ -40,8 +50,8 @@ export function JobCard({
             <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
               {title}
             </h3>
-            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize ${statusStyles[status]}`}>
-              {status.replace("-", " ")}
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${statusStyles[status]}`}>
+              {statusLabels[status]}
             </span>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">{company}</p>
@@ -67,19 +77,19 @@ export function JobCard({
         </div>
         <div className="flex items-center gap-1.5">
           <Users className="h-4 w-4" />
-          <span>{bidsCount} bids</span>
+          <span>{bidsCount} {t('jobCard.bids')}</span>
         </div>
       </div>
 
       <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
         <Link to={`/jobs/${id}`} className="w-full sm:w-auto">
           <Button variant="outline" size="sm" className="w-full sm:w-auto">
-            Visa detaljer
+            {t('jobCard.viewDetails')}
           </Button>
         </Link>
         {user?.role === "freelancer" && status === "open" && (
           <Button size="sm" className="w-full sm:w-auto">
-            Place Bid
+            {t('jobCard.placeBid')}
           </Button>
         )}
       </div>

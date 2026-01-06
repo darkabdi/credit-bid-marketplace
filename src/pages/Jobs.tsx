@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getProjects } from "@/services/projectServices";
+import { useLanguage } from "@/lib/i18n";
 
 interface Project {
   _id: string;
@@ -19,13 +20,18 @@ interface Project {
   createdAt?: string;
 }
 
-const filterCategories = ["All", "Open", "In Progress"];
-
 const Jobs = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const filterCategories = [
+    { key: "All", label: t('jobs.all') },
+    { key: "Open", label: t('jobs.open') },
+    { key: "In Progress", label: t('jobs.inProgress') },
+  ];
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -70,9 +76,9 @@ const Jobs = () => {
             <Briefcase className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">Alla Jobb</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">{t('jobs.title')}</h1>
             <p className="text-sm text-muted-foreground">
-              {openProjectsCount} öppna projekt väntar på dig
+              {openProjectsCount} {t('jobs.openProjects')}
             </p>
           </div>
         </div>
@@ -84,7 +90,7 @@ const Jobs = () => {
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Sök jobb, företag eller kategori..."
+              placeholder={t('jobs.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 bg-background"
@@ -93,13 +99,13 @@ const Jobs = () => {
           <div className="flex items-center gap-2">
             {filterCategories.map((filter) => (
               <Button
-                key={filter}
-                variant={activeFilter === filter ? "default" : "outline"}
+                key={filter.key}
+                variant={activeFilter === filter.key ? "default" : "outline"}
                 size="sm"
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => setActiveFilter(filter.key)}
                 className="text-sm"
               >
-                {filter === "All" ? "Alla" : filter === "Open" ? "Öppna" : "Pågående"}
+                {filter.label}
               </Button>
             ))}
           </div>
@@ -109,10 +115,10 @@ const Jobs = () => {
       {/* Results Summary */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-muted-foreground">
-          Visar <span className="font-medium text-foreground">{filteredProjects.length}</span> av {projects.length} jobb
+          {t('jobs.showing')} <span className="font-medium text-foreground">{filteredProjects.length}</span> {t('jobs.of')} {projects.length} {t('jobs.jobs')}
         </p>
         <Badge variant="secondary" className="text-xs">
-          {openProjectsCount} öppna
+          {openProjectsCount} {t('jobs.openCount')}
         </Badge>
       </div>
 
@@ -120,7 +126,7 @@ const Jobs = () => {
       {loading && (
         <div className="py-16 flex flex-col items-center justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
-          <p className="text-muted-foreground">Laddar projekt...</p>
+          <p className="text-muted-foreground">{t('jobs.loading')}</p>
         </div>
       )}
 
@@ -132,9 +138,9 @@ const Jobs = () => {
               key={project._id}
               id={project._id}
               title={project.title}
-              company={project.client?.name || "Kund"}
+              company={project.client?.name || t('common.client')}
               budget={`$${project.budget}`}
-              deadline="Öppen"
+              deadline={t('jobs.open')}
               bidsCount={project.bids?.length || 0}
               tags={[project.category]}
               status={project.status || "open"}
@@ -149,11 +155,11 @@ const Jobs = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
             <Search className="h-8 w-8 text-muted-foreground" />
           </div>
-          <p className="text-lg font-medium text-foreground mb-1">Inga jobb hittades</p>
+          <p className="text-lg font-medium text-foreground mb-1">{t('jobs.noJobsFound')}</p>
           <p className="text-muted-foreground">
             {projects.length === 0 
-              ? "Det finns inga projekt ännu" 
-              : "Försök med en annan sökterm eller filter"}
+              ? t('jobs.noProjectsYet')
+              : t('jobs.tryDifferentSearch')}
           </p>
         </div>
       )}

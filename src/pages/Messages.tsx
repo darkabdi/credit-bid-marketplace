@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
 interface Conversation {
   id: number;
@@ -64,6 +65,7 @@ const mockConversations: Conversation[] = [
 
 const Messages = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useLanguage();
 
   const filteredConversations = mockConversations.filter(
     (conv) =>
@@ -76,9 +78,9 @@ const Messages = () => {
       <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">Messages</h1>
+          <h1 className="text-2xl font-semibold text-foreground">{t('messages.title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Chat with clients and freelancers
+            {t('messages.subtitle')}
           </p>
         </div>
 
@@ -86,7 +88,7 @@ const Messages = () => {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search conversations..."
+            placeholder={t('messages.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -100,7 +102,7 @@ const Messages = () => {
               {filteredConversations.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
-                  <p className="text-muted-foreground">No conversations found</p>
+                  <p className="text-muted-foreground">{t('messages.noConversations')}</p>
                 </div>
               ) : (
                 <div className="divide-y divide-border">
