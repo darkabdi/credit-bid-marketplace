@@ -211,6 +211,22 @@ const translations = {
     'auth.connectQuality': 'Anslut med kvalitet',
     'auth.joinThousands': 'Gå med tusentals företag och entreprenörer som bygger framgångsrika partnerskap på Offera.',
 
+    // Forgot Password
+    'forgotPassword.title': 'Återställ lösenord',
+    'forgotPassword.description': 'Ange din e-postadress så skickar vi en länk för att återställa ditt lösenord.',
+    'forgotPassword.backToLogin': 'Tillbaka till inloggning',
+    'forgotPassword.sendLink': 'Skicka återställningslänk',
+    'forgotPassword.sending': 'Skickar...',
+    'forgotPassword.checkEmail': 'Kolla din e-post',
+    'forgotPassword.sentTo': 'Vi har skickat en återställningslänk till',
+    'forgotPassword.noEmail': 'Fick du ingen e-post?',
+    'forgotPassword.tryAgain': 'Försök igen',
+    'forgotPassword.emailSent': 'E-post skickad!',
+    'forgotPassword.checkInbox': 'Kolla din inkorg för återställningslänken.',
+    'forgotPassword.error': 'Något gick fel',
+    'forgotPassword.secureReset': 'Säker återställning',
+    'forgotPassword.secureDescription': 'Din säkerhet är vår prioritet. Återställningslänken är giltig i 24 timmar.',
+
     // Profile Page
     'profile.title': 'Profil',
     'profile.subtitle': 'Hantera din profilinformation',
@@ -484,6 +500,22 @@ const translations = {
     'auth.haveAccount': 'Already have an account?',
     'auth.connectQuality': 'Connect with Quality',
     'auth.joinThousands': 'Join thousands of businesses and contractors building successful partnerships on Offera.',
+
+    // Forgot Password
+    'forgotPassword.title': 'Reset Password',
+    'forgotPassword.description': 'Enter your email address and we\'ll send you a link to reset your password.',
+    'forgotPassword.backToLogin': 'Back to login',
+    'forgotPassword.sendLink': 'Send reset link',
+    'forgotPassword.sending': 'Sending...',
+    'forgotPassword.checkEmail': 'Check your email',
+    'forgotPassword.sentTo': 'We\'ve sent a reset link to',
+    'forgotPassword.noEmail': 'Didn\'t receive an email?',
+    'forgotPassword.tryAgain': 'Try again',
+    'forgotPassword.emailSent': 'Email sent!',
+    'forgotPassword.checkInbox': 'Check your inbox for the reset link.',
+    'forgotPassword.error': 'Something went wrong',
+    'forgotPassword.secureReset': 'Secure Reset',
+    'forgotPassword.secureDescription': 'Your security is our priority. The reset link is valid for 24 hours.',
 
     // Profile Page
     'profile.title': 'Profile',

@@ -99,7 +99,7 @@ const Auth = () => {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-foreground">{t('auth.password')}</Label>
                 {isLogin && (
-                  <a href="#" className="text-sm text-primary hover:text-primary/80 transition-colors">
+                  <a href="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors">
                     {t('auth.forgotPassword')}
                   </a>
                 )}

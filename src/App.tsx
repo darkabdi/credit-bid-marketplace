@@ -12,6 +12,7 @@ import ProjectCreate from "./pages/ProjectCreate";
 import ChatWorkspace from "./pages/ChatWorkspace";
 import PaymentCheckout from "./pages/PaymentCheckout";
 import Auth from "./pages/Auth";
+import ForgotPassword from "./pages/ForgotPassword";
 import RoleSelection from "./pages/RoleSelection";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
@@ -38,6 +39,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
              {/*  Logged-in but role not chosen yet */}
             <Route path="/role-selection" element={
