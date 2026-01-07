@@ -1,0 +1,191 @@
+import { useState } from "react";
+import { Briefcase, Lock, ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Link } from "@/components/ui/link";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
+import { toast } from "@/hooks/use-toast";
+
+const ResetPassword = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { t } = useLanguage();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const token = searchParams.get("token");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      toast({
+        title: t('resetPassword.passwordMismatch'),
+        description: t('resetPassword.passwordMismatchDesc'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      toast({
+        title: t('resetPassword.passwordTooShort'),
+        description: t('resetPassword.passwordTooShortDesc'),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      // TODO: Implement actual password reset API call with token
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setIsSubmitted(true);
+      toast({
+        title: t('resetPassword.success'),
+        description: t('resetPassword.successDesc'),
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: t('resetPassword.error'),
+        description: t('resetPassword.errorDesc'),
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex">
+      {/* Left Panel - Form */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-md">
+          {/* Logo */}
+          <Link href="/" className="inline-flex items-center gap-3 mb-12">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
+              <Briefcase className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-semibold text-foreground">BidHub</span>
+          </Link>
+
+          {/* Back to login */}
+          <button
+            onClick={() => navigate("/auth")}
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            {t('resetPassword.backToLogin')}
+          </button>
+
+          {!isSubmitted ? (
+            <>
+              {/* Header */}
+              <div className="mb-8">
+                <h1 className="text-2xl font-bold text-foreground">
+                  {t('resetPassword.title')}
+                </h1>
+                <p className="mt-2 text-muted-foreground">
+                  {t('resetPassword.description')}
+                </p>
+              </div>
+
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-foreground">{t('resetPassword.newPassword')}</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-10 h-11 bg-card border-border focus:border-primary"
+                      required
+                      minLength={8}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">{t('resetPassword.passwordHint')}</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-foreground">{t('resetPassword.confirmPassword')}</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="••••••••"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="pl-10 h-11 bg-card border-border focus:border-primary"
+                      required
+                      minLength={8}
+                    />
+                  </div>
+                </div>
+
+                <Button type="submit" className="w-full h-11 gap-2 mt-6" disabled={isLoading}>
+                  {isLoading ? t('resetPassword.resetting') : t('resetPassword.resetButton')}
+                  {!isLoading && <ArrowRight className="h-4 w-4" />}
+                </Button>
+              </form>
+            </>
+          ) : (
+            <>
+              {/* Success State */}
+              <div className="text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10 mx-auto mb-6">
+                  <CheckCircle className="h-8 w-8 text-green-500" />
+                </div>
+                <h1 className="text-2xl font-bold text-foreground mb-2">
+                  {t('resetPassword.successTitle')}
+                </h1>
+                <p className="text-muted-foreground mb-8">
+                  {t('resetPassword.successMessage')}
+                </p>
+                <Button
+                  className="w-full h-11 gap-2"
+                  onClick={() => navigate("/auth")}
+                >
+                  {t('resetPassword.goToLogin')}
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Right Panel - Decorative */}
+      <div className="hidden lg:flex flex-1 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-primary-foreground blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-primary-foreground blur-3xl" />
+        </div>
+        <div className="relative flex flex-col items-center justify-center p-12 text-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-foreground/20 mb-8">
+            <Lock className="h-8 w-8 text-primary-foreground" />
+          </div>
+          <h2 className="text-3xl font-bold text-primary-foreground mb-4">
+            {t('resetPassword.secureTitle')}
+          </h2>
+          <p className="text-primary-foreground/80 max-w-sm leading-relaxed">
+            {t('resetPassword.secureDescription')}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ResetPassword;

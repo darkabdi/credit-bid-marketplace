@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/authContext";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { useLanguage } from "@/lib/i18n";
+import { useNavigate } from "react-router-dom";
 
 interface TopBarProps {
   onOpenChat?: () => void;
 }
 export function TopBar({ onOpenChat }: TopBarProps) {
   const {user} = useAuth()
+  const navigate = useNavigate();
 
   const { t } = useLanguage();
 
@@ -41,12 +43,15 @@ export function TopBar({ onOpenChat }: TopBarProps) {
         </button>
 
         {/* User info - name hidden on mobile, avatar always visible */}
-        <div className="ml-1 sm:ml-2 flex items-center gap-2 sm:gap-3 border-l border-border pl-2 sm:pl-4">
+        <div 
+          className="ml-1 sm:ml-2 flex items-center gap-2 sm:gap-3 border-l border-border pl-2 sm:pl-4 cursor-pointer"
+          onClick={() => navigate('/profile')}
+        >
           <div className="hidden sm:block text-right">
             <p className="text-sm font-medium text-foreground">{user?.name || "Loading..."}</p>
             <p className="text-xs text-muted-foreground">{user?.role}</p>
           </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary shrink-0">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary shrink-0 hover:opacity-80 transition-opacity">
             <User className="h-5 w-5 text-primary-foreground" />
           </div>
         </div>
