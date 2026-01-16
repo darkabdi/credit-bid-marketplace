@@ -7,6 +7,7 @@ import { Link } from "@/components/ui/link";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/lib/i18n";
 import { toast } from "@/hooks/use-toast";
+import { forgotPassword as forgotPasswordRequest } from "@/services/authServices";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -17,27 +18,29 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    
-    try {
-      // TODO: Implement actual password reset API call
-      // For now, simulate a successful request
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setIsSubmitted(true);
-      toast({
-        title: t('forgotPassword.emailSent'),
-        description: t('forgotPassword.checkInbox'),
-      });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: t('forgotPassword.error'),
-        description: t('forgotPassword.tryAgain'),
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+
+  if (!email.trim()) return;
+
+  setIsLoading(true);
+
+  try {
+    await forgotPasswordRequest(email.trim().toLowerCase());
+    setIsSubmitted(true);
+
+    toast({
+      title: t("forgotPassword.emailSent"),
+      description: t("forgotPassword.checkInbox"),
+    });
+  } catch (error) {
+    console.error(error);
+    toast({
+      title: t("forgotPassword.error"),
+      description: t("forgotPassword.tryAgain"),
+      variant: "destructive",
+    });
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   return (

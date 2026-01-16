@@ -95,7 +95,7 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20">
+      <section className="relative overflow-hidden  pt-32 pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-3xl text-center">
@@ -189,7 +189,7 @@ const Landing = () => {
             {steps.map((step, index) => (
               <div key={step.step} className="relative">
                 {index < steps.length - 1 && (
-                  <div className="absolute right-0 top-8 hidden h-0.5 w-full bg-border lg:block" style={{ transform: 'translateX(50%)' }} />
+                  <div className="absolute right-0 top-8 hidden h-full w-full bg-border lg:block" style={{ transform: 'translateX(50%)' }} />
                 )}
                 <div className="relative rounded-xl bg-card p-6 shadow-card">
                   <span className="text-4xl font-bold text-accent/30">{step.step}</span>
